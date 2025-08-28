@@ -60,10 +60,10 @@ Hacer click en aceptar y luego ejecuta
 sudo netplan apply
 ```
 
-## Configuracion del archivo /etc/hosts para cada máquina
-### agregar a la configuracion a todos los hosts
+## Configuracion de hostname en cada hosts
+### agregar a la configuracion a cada hosts correspondiente
 ```
-192.168.31.10 control01
-192.168.31.11 compute01
-192.168.31.12 storage01
+hostnamectl set-hostname control01
+hostnamectl set-hostname compute01
+hostnamectl set-hostname storage01
 ```
