@@ -23,4 +23,8 @@ source /path/to/venv/bin/activate
 ```
 pip install -U pip
 ```
+4. Instalar paquetes adicionales
+```
+pip install docker dbus-python
+```
  
