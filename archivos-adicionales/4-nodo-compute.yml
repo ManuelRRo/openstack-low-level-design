@@ -1,0 +1,45 @@
+network:
+  ethernets:
+    enp1s0:
+      dhcp4: false
+      dhcp6: false
+      optional: true
+    enp9s0:
+      dhcp4: false
+      dhcp6: false
+  vlans:
+    enp1s0.10:
+      link: enp1s0
+      id: 412
+      macaddress: 10:10:12:12:11:11
+    enp1s0.30:
+      link: enp1s0
+      id: 30
+      macaddress: 20:20:21:21:22:22
+    enp1s0.20:
+      link: enp1s0
+      id: 20
+      macaddress: 30:30:31:31:32:32
+  bridges:
+    br-mgmt:
+      interfaces: [enp1s0.10]
+      addresses: [172.29.236.21/22]
+      macaddress: 12:12:11:11:10:10
+      nameservers:
+      addresses: [8.8.8.8]
+      routes:
+      - to: default
+      via: 172.29.236.1
+      metric: 100
+    br-vxlan:
+      interfaces: [enp1s0.30]
+      addresses: [172.29.240.21/22]
+      macaddress: 22:22:21:21:20:20
+    br-storage:
+      interfaces: [enp1s0.20]
+      addresses: [172.29.244.21/22]
+      macaddress: 32:32:31:31:30:30
+    br-vlan:
+      interfaces: [enp1s0]
+      macaddress: 42:42:41:41:4e:4f
+      version: 2

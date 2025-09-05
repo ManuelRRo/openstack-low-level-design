@@ -1,0 +1,25 @@
+network:
+  ethernets:
+    enp1s0:
+      addresses: [192.168.31.9/24]
+      nameservers:
+        addresses: [8.8.8.8]
+      routes:
+        - to: default
+          via: 192.168.31.1
+          metric: 1000
+  vlans:
+    enp1s0.10:
+      id: 10
+      link: enp1s0
+  bridges:
+    br-mgmt:
+      addresses: [172.29.236.2/22]
+      interfaces: [enp1s0.10]
+      nameservers:
+        addresses: [8.8.8.8]
+      routes:
+        - to: default
+          via: 172.29.236.1
+          metric: 100
+  version: 2
