@@ -61,6 +61,35 @@ manuel@manuel-hp:/tmp$ virsh domiflist ubuntu24.04-vm2
 manuel@manuel-hp:/tmp$ 
 
 
+sudo bridge vlan set dev nm-bridge vid 10
+sudo bridge vlan set dev nm-bridge vid 20
+sudo bridge vlan set dev nm-bridge vid 30
+sudo bridge vlan set dev nm-bridge vid 40
+
+sudo bridge vlan add dev vnet7 vid 10
+sudo bridge vlan add dev vnet7 vid 20
+sudo bridge vlan add dev vnet7 vid 30
+sudo bridge vlan add dev vnet7 vid 40
+
+sudo bridge vlan add dev vnet8 vid 10
+sudo bridge vlan add dev vnet8 vid 20
+sudo bridge vlan add dev vnet8 vid 30
+sudo bridge vlan add dev vnet8 vid 40
+
+sudo bridge vlan add dev vnet9 vid 10
+sudo bridge vlan add dev vnet9 vid 20
+sudo bridge vlan add dev vnet9 vid 30
+sudo bridge vlan add dev vnet9 vid 40
+
+sudo bridge vlan add dev enxc8a362be49d8 vid 10
+sudo bridge vlan add dev enxc8a362be49d8 vid 20
+sudo bridge vlan add dev enxc8a362be49d8 vid 30
+sudo bridge vlan add dev enxc8a362be49d8 vid 40
+
+
+
+sudo ip link set dev br0 type bridge vlan_filtering 1 vlan_default_pvid 0
+
 sudo bridge vlan add dev vnet1 vid 10 pvid untagged
 sudo bridge vlan add dev vnet2 vid 10 pvid untagged
 sudo bridge vlan add dev vnet3 vid 10 pvid untagged
