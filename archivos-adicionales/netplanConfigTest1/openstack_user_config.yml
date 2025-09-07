@@ -41,9 +41,9 @@ global_overrides:
         container_bridge: "br-vlan"
         container_type: "veth"
         container_interface: "eth12"
-        host_bind_override: "eth12"
+        host_bind_override: "enp8s0"
         type: "flat"
-        net_name: "physnet1"
+        net_name: "flat"
         group_binds:
           - neutron_openvswitch_agent
     - network:
@@ -52,7 +52,7 @@ global_overrides:
         container_interface: "eth11"
         type: "vlan"
         range: "101:200,301:400"
-        net_name: "physnet2"
+        net_name: "vlan"
         group_binds:
           - neutron_openvswitch_agent
     - network:

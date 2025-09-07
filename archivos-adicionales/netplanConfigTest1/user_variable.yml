@@ -21,12 +21,11 @@
 ## Debug and Verbose options.
 debug: true
 ansible_user: root
-ansible_ssh_private_key_file: /root/.ssh/id_pub
+ansible_ssh_private_key_file: /root/.ssh/id_rsa
 ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
 use_pypi: true
 enable_pip_download_cache: false
-
 ## Set the service setup host
 # The default is to use localhost (the deploy host where ansible runs),
 # but any other host can be used. If using an alternative host with all
@@ -55,7 +54,12 @@ install_method: source
 # are any swift hosts in the environment. Use this setting to override
 # this automation if you wish for a different default back-end.
 # glance_default_store: file
+neutron_plugin_type: ml2.ovs
 
+neutron_ml2_drivers_type: "flat,vlan,vxlan"
+neutron_plugin_base:
+  - router
+  - metering
 ## Ceph pool name for Glance to use
 # glance_rbd_store_pool: images
 # glance_rbd_store_chunk_size: 8

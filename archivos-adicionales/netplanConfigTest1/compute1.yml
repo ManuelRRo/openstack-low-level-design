@@ -14,6 +14,9 @@ network:
     enp1s0.30:
       id: 30
       link: enp1s0
+    enp1s0.40:
+      id: 40
+      link: enp1s0
   bridges:
     br-mgmt:
       interfaces: [enp1s0.10]
