@@ -2,23 +2,12 @@ network:
   ethernets:
     enp1s0:
       dhcp4: false
-    enp7s0: 
-      dhcp4: false
-    enp8s0:
-      dhcp4: no
-      addresses: [192.168.31.11/24]
-      nameservers:
-        addresses:
-          - 8.8.8.8
-          - 8.8.4.4
-      routes:
-        - to: default
-          via: 192.168.31.1
-          metric: 1000
+      dhcp6: false
+      optional: true
   vlans:
     enp1s0.10:
-      id: 10
       link: enp1s0
+      id: 10
     enp1s0.20:
       id: 20
       link: enp1s0
@@ -30,20 +19,17 @@ network:
       link: enp1s0
   bridges:
     br-mgmt:
-      addresses: [172.29.236.11/22]
       interfaces: [enp1s0.10]
-      macaddress: 60:f4:12:ac:32:aa
+      addresses: [172.29.236.12/22]
       nameservers:
         addresses: [8.8.8.8]
       routes:
         - to: default
           via: 172.29.236.1
           metric: 100
-    br-storage:
-      interfaces: [enp1s0.20]
     br-vxlan:
       interfaces: [enp1s0.30]
-      addresses: [172.29.240.11/22]
+      addresses: [172.29.240.12/22]
     br-vlan:
       interfaces: [enp1s0]
   version: 2
