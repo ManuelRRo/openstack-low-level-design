@@ -1,7 +1,5 @@
 network:
   ethernets:
-    enp7s0:
-      dhcp4: false
     enp1s0:
       dhcp4: false
       dhcp6: false
@@ -29,9 +27,11 @@ network:
     br-vxlan:
       interfaces: [enp1s0.30]
       addresses: [172.29.240.12/22]
+      openvswitch: {}
     br-storage:
       interfaces: [enp1s0.20]
       addresses: [172.29.244.12/22]
-    br-vlan:
+    br-ex:
       interfaces: [enp1s0]
+      openvswitch: {}
   version: 2

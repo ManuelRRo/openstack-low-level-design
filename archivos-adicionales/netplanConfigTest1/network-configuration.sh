@@ -1,7 +1,7 @@
 openstack network create ext-net \
   --external --share \
   --provider-network-type flat \
-  --provider-physical-network flat
+  --provider-physical-network physnet1
 
 openstack subnet create --network ext-net \
   --allocation-pool start=192.168.31.101,end=192.168.31.150 \
@@ -24,6 +24,7 @@ openstack port list --router router
 
 
 openstack flavor create --id 0 --vcpus 1 --ram 64 --disk 1 m1.nano
+openstack flavor create --id 0 --vcpus 1 --ram 512 --disk 20 m1.medium
 
 
 openstack keypair create --public-key id_rsa.pub mykey
