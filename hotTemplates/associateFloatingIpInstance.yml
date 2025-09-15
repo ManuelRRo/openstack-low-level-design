@@ -1,0 +1,34 @@
+heat_template_version: 2021-04-16
+parameters:
+  net:
+    description: nombre de red de despliegue de la instancia.
+    type: string
+    default: selfservice
+
+  security_id:
+    description: id del grupo de seguridad.
+    type: string
+    default: abbe9a8c-f446-473f-83a1-ff9644ae00ac
+
+resources:
+  inst1:
+    type: OS::Nova::Server
+    properties:
+      flavor: m1.medium
+      image: ubuntu-noble
+      networks:
+        - network: {get_param: net}
+      security_groups:
+        - {get_param: security_id}
+      key_name: mykey
+
+  floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: ext-net
+
+  association:
+    type: OS::Neutron::FloatingIPAssociation
+    properties:
+      floatingip_id: { get_resource: floating_ip }
+      port_id: {get_attr: [inst1, addresses, {get_param: net}, 0, port]}

@@ -1,0 +1,50 @@
+heat_template_version: 2021-04-16
+
+parameters:
+  snapshot_image_id: {type: string}
+  flavor: {type: string, default: m1.small}
+  user_key: {type: string}
+  private_net:
+    description: nombre de red de despliegue de la instancia.
+    type: string
+    default: selfservice
+
+resources:
+  srv:
+    type: OS::Nova::Server
+    properties:
+      name: srv-softdeploy
+      image: { get_param: snapshot_image_id }
+      flavor: { get_param: flavor }
+      networks: 
+        - network: {get_param: private_net}
+  
+  floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: ext-vlan
+
+  association:
+    type: OS::Neutron::FloatingIPAssociation
+    properties:
+      floatingip_id: { get_resource: floating_ip }
+      port_id: {get_attr: [srv, addresses, {get_param: private_net}, 0, port]}
+
+  pip_config:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      group: script
+      config: |
+        #!/bin/bash
+        set -eux
+        which pip3 || apt-get update && apt-get install -y python3-pip
+        pip3 install --upgrade pip
+        pip3 install fastapi uvicorn
+
+  pip_deploy:
+    type: OS::Heat::SoftwareDeployment
+    properties:
+      server: { get_resource: srv }
+      config: { get_resource: pip_config }
+      actions: ["CREATE","UPDATE"]
+      input_values: {}
