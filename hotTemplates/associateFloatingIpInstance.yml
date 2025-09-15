@@ -21,6 +21,17 @@ resources:
       security_groups:
         - {get_param: security_id}
       key_name: mykey
+      user_data: |
+        #!/bin/bash
+        echo "Running boot script"
+        sudo -i which pip3 || apt-get update && apt-get install -y python3-pip
+        sudo -i pip3 install --upgrade pip
+        sudo -i apt install python3-venv
+        python3 -m venv env
+        source env/bin/activate
+        pip install fastapi uvicorn
+        deactivate
+        # ... 
 
   floating_ip:
     type: OS::Neutron::FloatingIP
