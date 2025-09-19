@@ -1,0 +1,44 @@
+heat_template_version: 2021-04-16
+parameters:
+  net:
+    description: nombre de red de despliegue de la instancia.
+    type: string
+    default: selfservice
+
+  security_id:
+    description: id del grupo de seguridad.
+    type: string
+    default: 7d716204-6c39-4cc0-9171-38f911fcfdbf
+
+resources:
+  inst1:
+    type: OS::Nova::Server
+    properties:
+      flavor: 8_16384_100_gpu
+      image: ubuntu-cuda-template
+      networks:
+        - network: {get_param: net}
+      security_groups:
+        - {get_param: security_id}
+      key_name: root-infra
+      user_data_format: RAW
+      user_data: |
+        #!/bin/bash
+        echo "Running boot script"
+        sudo -i which pip3 || sudo -i apt-get update && sudo -i apt-get install -y python3-pip python3-venv
+        python3 -m venv /home/ubuntu/env
+        source /home/ubuntu/env/bin/activate
+        pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+        deactivate
+        # ... 
+
+  floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: ext-vlan
+
+  association:
+    type: OS::Neutron::FloatingIPAssociation
+    properties:
+      floatingip_id: { get_resource: floating_ip }
+      port_id: {get_attr: [inst1, addresses, {get_param: net}, 0, port]}

@@ -54,6 +54,7 @@ openstack port list --router router
 openstack flavor create --id 0 --vcpus 1 --ram 64 --disk 1 m1.nano
 openstack flavor create --id 1 --vcpus 1 --ram 512 --disk 20 m1.medium
 openstack flavor create --id 2 --vcpus 1 --ram 1024 --disk 20 m1.large
+openstack flavor create --id 4 --vcpus 4 --ram 8192 --disk 80 m1.x-large
 
 
 openstack keypair create --public-key id_rsa.pub mykey
