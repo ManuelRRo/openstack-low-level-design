@@ -1,0 +1,15 @@
+heat_template_version: 2021-04-16
+
+resources:
+  instance:
+    type: OS::Heat::Stack
+    properties:
+      template: {get_file: nova.yml}
+      parameters:
+        flavor_name: m1.medium
+        image_name: ubuntu-noble
+        private_net: selfservice
+        external_net: ext-net
+        key_name: mykey
+        software_opt: pt-cpu
+        security_id: abbe9a8c-f446-473f-83a1-ff9644ae00ac
