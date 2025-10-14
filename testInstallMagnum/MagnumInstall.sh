@@ -10,6 +10,11 @@ GRANT ALL PRIVILEGES ON magnum.* TO 'magnum'@'%' \
 
 . openrc
 
+###################################### agregar usuario manual a rabbit en ese lxc-container
+rabbitmqctl add_user magnum 1c1497a7d91f73562cc17
+rabbitmqctl set_permissions magnum ".*" ".*" ".*"
+#######################################
+
 openstack user create --domain default \
   --password-prompt magnum
 
@@ -69,7 +74,7 @@ connection = mysql+pymysql://magnum:1c1497a7d91f73562cc17@172.29.236.11:3306/mag
 
 [keystone_authtoken]
 ...
-memcached_servers = controller:11211
+memcached_servers = 172.29.236.11:11211
 auth_version = v3
 www_authenticate_uri = http://172.29.236.11:5000
 project_domain_id = default
@@ -94,6 +99,16 @@ trustee_keystone_interface = internal
 ...
 driver = messaging
 
+[oslo_messaging_rabbit]
+ssl = true
+rabbit_ssl_port = 5671
+
 [DEFAULT]
 ...
-transport_url = rabbit://magnum:58da6e769aba46fdbb5afbf4120b3ecf1702f925e58b09b82b0@172.29.236.253:5671
+transport_url = rabbit://magnum:1c1497a7d91f73562cc17@172.29.236.253:5671/
+
+
+##########################################
+su -s /bin/sh -c "magnum-db-manage upgrade" magnum
+
+
