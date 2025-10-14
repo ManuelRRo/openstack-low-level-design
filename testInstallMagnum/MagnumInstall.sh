@@ -111,4 +111,7 @@ transport_url = rabbit://magnum:1c1497a7d91f73562cc17@172.29.236.253:5671/
 ##########################################
 su -s /bin/sh -c "magnum-db-manage upgrade" magnum
 
+# COnfiguracion magnum poner en todos los siguientes apartados
+# barbican_client cinder_client glance_client heat_client neutron_client nova_client magnum_client
+region_name = RegionOne
 
