@@ -1,0 +1,697 @@
+root@infra1-utility-container-6987036e:~# openstack software config show 3d9a75f3-d70c-4b5a-889d-336d620650a6 -f yaml
+id: 3d9a75f3-d70c-4b5a-889d-336d620650a6
+name: kube-cluster-te6jwrjql774-kube_masters-r5lyhoilyrkx-0-gwhixiebzsa7-master_config-5vqy5xtioykk
+group: script
+config: "#!/bin/bash\necho \"START: write-heat-params\"\n\narch=$(uname -m)\n\ncase\
+  \ \"$arch\" in\n    aarch64)\n        ARCH=arm64\n        ;;\n    x86_64)\n    \
+  \    ARCH=amd64\n        ;;\n    *)\n        ARCH=$arch\n        ;;\nesac\n\nHEAT_PARAMS=/etc/sysconfig/heat-params\n\
+  [ -f ${HEAT_PARAMS} ] || {\n    echo \"Writing File: $HEAT_PARAMS\"\n    mkdir -p\
+  \ \"$(dirname ${HEAT_PARAMS})\"\n    cat > ${HEAT_PARAMS} <<EOF\nARCH=\"$ARCH\"\n\
+  INSTANCE_NAME=\"kube-cluster-te6jwrjql774-master-0\"\nHEAPSTER_ENABLED=\"False\"\
+  \nMETRICS_SERVER_ENABLED=\"True\"\nMETRICS_SERVER_CHART_TAG=\"v3.7.0\"\nPROMETHEUS_MONITORING=\"\
+  False\"\nKUBE_API_PUBLIC_ADDRESS=\"192.168.31.139\"\nKUBE_API_PRIVATE_ADDRESS=\"\
+  10.0.0.221\"\nKUBE_API_PORT=\"6443\"\nKUBE_NODE_PUBLIC_IP=\"192.168.31.139\"\nKUBE_NODE_IP=\"\
+  10.0.0.221\"\nKUBE_ALLOW_PRIV=\"true\"\nTRAEFIK_INGRESS_CONTROLLER_TAG=\"v1.7.28\"\
+  \nENABLE_CINDER=\"$ENABLE_CINDER\"\nETCD_VOLUME=\"53e00011-f67f-4492-95f7-667b5e052ef4\"\
+  \nETCD_VOLUME_SIZE=\"0\"\nDOCKER_VOLUME=\"88743535-40b4-4834-814c-ce8d06f55af3\"\
+  \nDOCKER_VOLUME_SIZE=\"0\"\nDOCKER_STORAGE_DRIVER=\"overlay2\"\nCGROUP_DRIVER=\"\
+  cgroupfs\"\nNETWORK_DRIVER=\"flannel\"\nFLANNEL_NETWORK_CIDR=\"10.100.0.0/16\"\n\
+  FLANNEL_NETWORK_SUBNETLEN=\"24\"\nFLANNEL_BACKEND=\"vxlan\"\nPODS_NETWORK_CIDR=\"\
+  10.100.0.0/16\"\nPORTAL_NETWORK_CIDR=\"10.254.0.0/16\"\nADMISSION_CONTROL_LIST=\"\
+  NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,TaintNodesByCondition,Priority,DefaultTolerationSeconds,DefaultStorageClass,StorageObjectInUseProtection,PersistentVolumeClaimResize,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,RuntimeClass\"\
+  \nETCD_DISCOVERY_URL=\"https://discovery.etcd.io/301faa13d85537648c8b85fd19a7bdf9\"\
+  \nUSERNAME=\"admin\"\nPASSWORD=\"ChangeMe\"\nCLUSTER_NETWORK=\"6afc064a-44e0-47c2-abc1-bffd9e576408\"\
+  \nCLUSTER_NETWORK_NAME=\"kube-cluster\"\nCLUSTER_SUBNET=\"b4de038f-f834-41ce-add2-fc39ebdc8433\"\
+  \nCLUSTER_SUBNET_CIDR=\"10.0.0.0/24\"\nTLS_DISABLED=\"False\"\nKUBE_DASHBOARD_ENABLED=\"\
+  True\"\nINFLUX_GRAFANA_DASHBOARD_ENABLED=\"False\"\nVERIFY_CA=\"True\"\nCLUSTER_UUID=\"\
+  c320a9f8-c8d6-42ae-a790-22463a2ce789\"\nMAGNUM_URL=\"http://172.29.238.46:9511/v1\"\
+  \nMONITORING_ENABLED=\"False\"\nMONITORING_RETENTION_DAYS=\"14\"\nMONITORING_RETENTION_SIZE=\"\
+  14\"\nMONITORING_INTERVAL_SECONDS=\"30\"\nMONITORING_STORAGE_CLASS_NAME=\"\"\nMONITORING_INGRESS_ENABLED=\"\
+  False\"\nCLUSTER_BASIC_AUTH_SECRET=\"\"\nCLUSTER_ROOT_DOMAIN_NAME=\"localhost\"\n\
+  PROMETHEUS_OPERATOR_CHART_TAG=\"v8.12.13\"\nPROMETHEUS_ADAPTER_ENABLED=\"True\"\n\
+  PROMETHEUS_ADAPTER_CHART_TAG=\"1.4.0\"\nPROMETHEUS_ADAPTER_CONFIGMAP=\"\"\nVOLUME_DRIVER=\"\
+  \"\nREGION_NAME=\"RegionOne\"\nHTTP_PROXY=\"\"\nHTTPS_PROXY=\"\"\nNO_PROXY=\"\"\n\
+  HYPERKUBE_PREFIX=\"docker.io/rancher/\"\nKUBE_TAG=\"v1.23.3-rancher1\"\nCLOUD_PROVIDER_TAG=\"\
+  v1.23.1\"\nCLOUD_PROVIDER_ENABLED=\"False\"\nETCD_TAG=\"v3.4.6\"\nCOREDNS_TAG=\"\
+  1.6.6\"\nFLANNEL_TAG=\"v0.15.1\"\nFLANNEL_CNI_TAG=\"v0.3.0\"\nKUBE_VERSION=\"v1.18.16\"\
+  \nKUBE_DASHBOARD_VERSION=\"v2.0.0\"\nTRUSTEE_USER_ID=\"4af47b3470d8417cbcfbc78e54bfd631\"\
+  \nTRUSTEE_PASSWORD=\"zwxYMc89MrcBMDx56U\"\nTRUST_ID=\"\"\nAUTH_URL=\"https://192.168.122.11:5000/v3\"\
+  \nINSECURE_REGISTRY_URL=\"\"\nCONTAINER_INFRA_PREFIX=\"\"\nSYSTEM_PODS_INITIAL_DELAY=\"\
+  30\"\nSYSTEM_PODS_TIMEOUT=\"5\"\nETCD_LB_VIP=\"\"\nDNS_SERVICE_IP=\"10.254.0.10\"\
+  \nDNS_CLUSTER_DOMAIN=\"cluster.local\"\nCERT_MANAGER_API=\"False\"\nCA_KEY=\"\"\n\
+  CALICO_TAG=\"v3.21.2\"\nCALICO_IPV4POOL=\"10.100.0.0/16\"\nCALICO_IPV4POOL_IPIP=\"\
+  Off\"\nINGRESS_CONTROLLER=\"\"\nINGRESS_CONTROLLER_ROLE=\"ingress\"\nOCTAVIA_INGRESS_CONTROLLER_TAG=\"\
+  v1.18.0\"\nKUBELET_OPTIONS=\"\"\nKUBECONTROLLER_OPTIONS=\"\"\nKUBEAPI_OPTIONS=\"\
+  \"\nKUBEPROXY_OPTIONS=\"\"\nKUBESCHEDULER_OPTIONS=\"\"\nOCTAVIA_ENABLED=\"False\"\
+  \nOCTAVIA_PROVIDER=\"amphora\"\nOCTAVIA_LB_ALGORITHM=\"ROUND_ROBIN\"\nOCTAVIA_LB_HEALTHCHECK=\"\
+  True\"\nKUBE_SERVICE_ACCOUNT_KEY=\"-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3Wjz+ftcqf/asfTh52wa\\\
+  nAGfdfzaki0M8qhhD0IwlXrddkAYREFvpgDYE6HvwcYPsOaxDSm9SxY0CuWYUU6pV\\nCojb+vH7jh5Xiz4R/dNM2UkTfzu8v8Jta9QSgyW2rYKgBuSWCzLnUEhIxgMa18AR\\\
+  nIXVx9V4QbJKDSaYnkhLNoB5i6MvwzMF5FFn/5cjDrpH+R5NRyONIrYoW8zAaMvIp\\nPEUS10knh26Z9KNqWe+IATTZLOpXP4OGPyo3PwXB1pghjDGiOERKQ3YJcHof2ahq\\\
+  najvORmh8gpbIW8CjvtQ9ZR2VD1nJknk5IBladM5IJwiV5n5Qk9yf0tDGIT2WbTsF\\ntwIDAQAB\\n-----END\
+  \ PUBLIC KEY-----\\n\"\nKUBE_SERVICE_ACCOUNT_PRIVATE_KEY=\"-----BEGIN RSA PRIVATE\
+  \ KEY-----\\nMIIEowIBAAKCAQEA3Wjz+ftcqf/asfTh52waAGfdfzaki0M8qhhD0IwlXrddkAYR\\\
+  nEFvpgDYE6HvwcYPsOaxDSm9SxY0CuWYUU6pVCojb+vH7jh5Xiz4R/dNM2UkTfzu8\\nv8Jta9QSgyW2rYKgBuSWCzLnUEhIxgMa18ARIXVx9V4QbJKDSaYnkhLNoB5i6Mvw\\\
+  nzMF5FFn/5cjDrpH+R5NRyONIrYoW8zAaMvIpPEUS10knh26Z9KNqWe+IATTZLOpX\\nP4OGPyo3PwXB1pghjDGiOERKQ3YJcHof2ahqajvORmh8gpbIW8CjvtQ9ZR2VD1nJ\\\
+  nknk5IBladM5IJwiV5n5Qk9yf0tDGIT2WbTsFtwIDAQABAoIBAC3ByuoWsIfRgHjW\\nivkwtg7vaC8qM8c0Fg1xBlLLI833RzbEijI/THpar5j8RCyxfthMaXuwlgKNqcp2\\\
+  n9ix0Py72KcAq0joEu0LjiQRT7sXY/FaHGfLnU4W9RjYkTSR+omPKSdf2pSdKSP/j\\nFGESKHgptWtoDSzi+o7176eYizZTrseLOz85khY98dUmY+IA1rKgRALH9RGDnJxd\\\
+  nGVgsxHfQ/6T0rfn64XgeSNno9HSQXVUldHdRUgOzaimfAteAT05rwXMmGoyPULxL\\nSP/PP1asjTZKsEBhMu7qmpsnXZyjsTgdV72Zq2ugCP3wHsTyWuSsMOUUk8Po+vQX\\\
+  n8US854ECgYEA+gFvnO1a5/sit+OR6LDLmGPM0fN9tQ6ls1ldFbkNn1QpyaE0A1Cl\\nkV0KlshehvFxbRScKeCRVqQO9vDTxY6Z+B2uF/j1BRQxMhb7EYPmEdZpuT0K6r4s\\\
+  nQf0wmg/kQq7hzJH90kc08xcaBLlehod/Sb5kFiYRN2PBhEtOfP8Yx18CgYEA4rf+\\nX3gvDDAMVgNEv0/xyEM1g45nZN5jSllgSrCD+njc/07Mp/GqbHxiOJLkp5d1qfy7\\\
+  neOLYAFVLrdaQtdhW8fYXk/IMoTjCjG6W/5vqlY4AR3y9xF1qAjV61us7uLVNNn/O\\nSL206Ah6fAbep/kIKpsw9LJXQxNWC5s1nQvhmKkCgYAg+nGDrNeyBDG3OiC0JiYl\\\
+  nKv0IsOrjKFR5TQ93XxrJ6qs8erRGv6unejN8Yl/9wvmoXvCeoY3qdOe4cVouFDqB\\nPUEKzn9btScsKVXjIJgHwFXf5op7Hqzt4302xWPh2/nTJ2rpAxWb/28iMmWir1r+\\\
+  nGkxPk6Pvv4v2bIyk9m2JVwKBgQCyHhuapbFQwe7vJGI+a3BpBWRllttkQ9N99fnQ\\ntBz8CziU3DOtPg/Ga3I/QCikAjpO8l/W+WD54gky6f+G3hBwyAZ+FQwXHaC686dt\\\
+  n6fDCzm0pvLbaLwm58oovj1+8HbQrvP0z6NbX9NFF35/OF7hywLoVhIdKC0bul2Hn\\noA39AQKBgCoGtCVqRpk2jNrpafEjAAWCsCE/DF7NaGLjn8sLXyk7SU9/iTbNpN6r\\\
+  nhDSh1+eQ0h+eSftrcA3F+jEaK3sfOIYGJjWKmC8bK9PPrhFcYd0dTC/9ZfUR1pkr\\nn3ZIy7Izg5Qj5ycHhYeYghlFRIqmauxO7tIcnjQA23ysLVjleZv6\\\
+  n-----END RSA PRIVATE KEY-----\\n\"\nPROMETHEUS_TAG=\"v1.8.2\"\nGRAFANA_TAG=\"5.1.5\"\
+  \nHEAT_CONTAINER_AGENT_TAG=\"wallaby-stable-1\"\nKEYSTONE_AUTH_ENABLED=\"True\"\n\
+  K8S_KEYSTONE_AUTH_TAG=\"v1.18.0\"\nPROJECT_ID=\"24312273368046dc93179433c9d749ca\"\
+  \nEXTERNAL_NETWORK_ID=\"4cb1c162-5ac0-4a6f-a309-6e26767ac3b5\"\nHELM_CLIENT_URL=\"\
+  \"\nHELM_CLIENT_SHA256=\"018f9908cb950701a5d59e757653a790c66d8eda288625dbb185354ca6f41f6b\"\
+  \nHELM_CLIENT_TAG=\"v3.2.1\"\nNODE_PROBLEM_DETECTOR_TAG=\"v0.6.2\"\nNGINX_INGRESS_CONTROLLER_TAG=\"\
+  0.32.0\"\nNGINX_INGRESS_CONTROLLER_CHART_TAG=\"4.0.17\"\nAUTO_HEALING_ENABLED=\"\
+  False\"\nAUTO_HEALING_CONTROLLER=\"draino\"\nAUTO_SCALING_ENABLED=\"False\"\nCINDER_CSI_ENABLED=\"\
+  True\"\nCINDER_CSI_PLUGIN_TAG=\"v1.23.0\"\nCSI_ATTACHER_TAG=\"v3.3.0\"\nCSI_PROVISIONER_TAG=\"\
+  v3.0.0\"\nCSI_SNAPSHOTTER_TAG=\"v4.2.1\"\nCSI_RESIZER_TAG=\"v1.3.0\"\nCSI_NODE_DRIVER_REGISTRAR_TAG=\"\
+  v2.4.0\"\nCSI_LIVENESS_PROBE_TAG=\"v2.5.0\"\nDRAINO_TAG=\"abf028a\"\nMAGNUM_AUTO_HEALER_TAG=\"\
+  v1.18.0\"\nAUTOSCALER_TAG=\"v1.18.1\"\nMIN_NODE_COUNT=\"0\"\nMAX_NODE_COUNT=\"2\"\
+  \nNPD_ENABLED=\"True\"\nNODEGROUP_ROLE=\"master\"\nNODEGROUP_NAME=\"default-master\"\
+  \nUSE_PODMAN=\"True\"\nKUBE_IMAGE_DIGEST=\"\"\nCONTAINER_RUNTIME=\"host-docker\"\
+  \nCONTAINERD_VERSION=\"1.4.4\"\nCONTAINERD_TARBALL_URL=\"\"\nCONTAINERD_TARBALL_SHA256=\"\
+  96641849cb78a0a119223a427dfdc1ade88412ef791a14193212c8c8e29d447b\"\nPOST_INSTALL_MANIFEST_URL=\"\
+  \"\nMETRICS_SCRAPER_TAG=\"v1.0.4\"\nCLUSTER_SUBNET_CIDR=\"10.0.0.0/24\"\nEOF\n}\n\
+  \nchown root:root \"${HEAT_PARAMS}\"\nchmod 600 \"${HEAT_PARAMS}\"\n\necho \"END:\
+  \ write-heat-params\"\n\nset +x\n\necho \"START: install cri\"\n\n. /etc/sysconfig/heat-params\n\
+  set -x\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\n\nif [ \"${CONTAINER_RUNTIME}\"\
+  \ = \"containerd\"  ] ; then\n    $ssh_cmd systemctl disable docker.service docker.socket\n\
+  \    $ssh_cmd systemctl stop docker.service docker.socket\n    if $ssh_cmd [ -f\
+  \ /etc/containerd/config.toml ] ; then\n        $ssh_cmd sed -i 's/bin_dir.*$/bin_dir\\\
+  \ =\\ \\\"\"\\/opt\\/cni\\/bin\\/\"\\\"/' /etc/containerd/config.toml\n    fi\n\
+  \    if [ -z \"${CONTAINERD_TARBALL_URL}\"  ] ; then\n        CONTAINERD_TARBALL_URL=\"\
+  https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/cri-containerd-cni-${CONTAINERD_VERSION}-linux-amd64.tar.gz\"\
+  \n    fi\n    i=0\n    until curl -o /srv/magnum/cri-containerd.tar.gz -L \"${CONTAINERD_TARBALL_URL}\"\
+  \n    do\n        i=$((i + 1))\n        [ $i -lt 5 ] || break;\n        sleep 5\n\
+  \    done\n\n    if ! echo \"${CONTAINERD_TARBALL_SHA256} /srv/magnum/cri-containerd.tar.gz\"\
+  \ | sha256sum -c - ; then\n        echo \"ERROR cri-containerd.tar.gz computed checksum\
+  \ did NOT match, exiting.\"\n        exit 1\n    fi\n    $ssh_cmd tar xzvf /srv/magnum/cri-containerd.tar.gz\
+  \ -C / --no-same-owner --touch --no-same-permissions\n    $ssh_cmd systemctl daemon-reload\n\
+  \    $ssh_cmd systemctl enable containerd\n    $ssh_cmd systemctl start containerd\n\
+  else\n    # CONTAINER_RUNTIME=host-docker\n    $ssh_cmd systemctl disable docker\n\
+  \    if $ssh_cmd cat /usr/lib/systemd/system/docker.service | grep 'native.cgroupdriver';\
+  \ then\n            $ssh_cmd cp /usr/lib/systemd/system/docker.service /etc/systemd/system/\n\
+  \            sed -i \"s/\\(native.cgroupdriver=\\)\\w\\+/\\1$CGROUP_DRIVER/\" \\\
+  \n                    /etc/systemd/system/docker.service\n    else\n           \
+  \ cat > /etc/systemd/system/docker.service.d/cgroupdriver.conf << EOF\n    ExecStart=---exec-opt\
+  \ native.cgroupdriver=$CGROUP_DRIVER\nEOF\n    fi\n\n    $ssh_cmd systemctl daemon-reload\n\
+  \    $ssh_cmd systemctl enable docker\nfi\n\necho \"END: install cri\"\n\nstep=\"\
+  install-clients\"\nprintf \"Starting to run ${step}\\n\"\n\nset -e\nset +x\n. /etc/sysconfig/heat-params\n\
+  set -x\n\nhyperkube_image=\"${CONTAINER_INFRA_PREFIX:-${HYPERKUBE_PREFIX}}hyperkube:${KUBE_TAG}\"\
+  \nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\nmkdir -p /srv/magnum/bin/\n\
+  i=0\nuntil ${ssh_cmd} \"/usr/bin/podman run \\\n    --entrypoint /bin/bash \\\n\
+  \    --name install-kubectl \\\n    --net host \\\n    --privileged \\\n    --rm\
+  \ \\\n    --user root \\\n    --volume /srv/magnum/bin:/host/srv/magnum/bin \\\n\
+  \    ${hyperkube_image} \\\n    -c 'cp /usr/local/bin/kubectl /host/srv/magnum/bin/kubectl'\"\
+  \ndo\n    i=$((i + 1))\n    if [ ${i} -gt 60 ] ; then\n        echo \"ERROR Unable\
+  \ to install kubectl. Abort.\"\n        exit 1\n    fi\n    echo \"WARNING Attempt\
+  \ ${i}: Trying to install kubectl. Sleeping 5s\"\n    sleep 5s\ndone\necho \"INFO\
+  \ Installed kubectl.\"\n\necho \"export PATH=/srv/magnum/bin:\\$PATH\" >> /etc/bashrc\n\
+  export PATH=/srv/magnum/bin:$PATH\n\nprintf \"Finished running ${step}\\n\"\n\n\
+  # Copyright 2014 The Kubernetes Authors All rights reserved.\n#\n# Licensed under\
+  \ the Apache License, Version 2.0 (the \"License\");\n# you may not use this file\
+  \ except in compliance with the License.\n# You may obtain a copy of the License\
+  \ at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required\
+  \ by applicable law or agreed to in writing, software\n# distributed under the License\
+  \ is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY\
+  \ KIND, either express or implied.\n# See the License for the specific language\
+  \ governing permissions and\n# limitations under the License.\n\n. /etc/sysconfig/heat-params\n\
+  \nset -x\nset -o errexit\nset -o nounset\nset -o pipefail\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config\
+  \ root@localhost\"\n\nif [ \"$TLS_DISABLED\" == \"True\" ]; then\n    exit 0\nfi\n\
+  \nif [ \"$VERIFY_CA\" == \"True\" ]; then\n    VERIFY_CA=\"\"\nelse\n    VERIFY_CA=\"\
+  -k\"\nfi\n\nif [ -z \"${KUBE_NODE_IP}\" ]; then\n    KUBE_NODE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)\n\
+  fi\n\nsans=\"IP:${KUBE_NODE_IP}\"\n\nif [ -z \"${KUBE_NODE_PUBLIC_IP}\" ]; then\n\
+  \    KUBE_NODE_PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)\n\
+  fi\n\nif [ -n \"${KUBE_NODE_PUBLIC_IP}\" ]; then\n    sans=\"${sans},IP:${KUBE_NODE_PUBLIC_IP}\"\
+  \nfi\n\nif [ \"${KUBE_NODE_PUBLIC_IP}\" != \"${KUBE_API_PUBLIC_ADDRESS}\" ] \\\n\
+  \        && [ -n \"${KUBE_API_PUBLIC_ADDRESS}\" ]; then\n    sans=\"${sans},IP:${KUBE_API_PUBLIC_ADDRESS}\"\
+  \nfi\n\nif [ \"${KUBE_NODE_IP}\" != \"${KUBE_API_PRIVATE_ADDRESS}\" ] \\\n     \
+  \   && [ -n \"${KUBE_API_PRIVATE_ADDRESS}\" ]; then\n    sans=\"${sans},IP:${KUBE_API_PRIVATE_ADDRESS}\"\
+  \nfi\n\nMASTER_HOSTNAME=${MASTER_HOSTNAME:-}\nif [ -n \"${MASTER_HOSTNAME}\" ];\
+  \ then\n    sans=\"${sans},DNS:${MASTER_HOSTNAME}\"\nfi\n\nif [ -n \"${ETCD_LB_VIP}\"\
+  \ ]; then\n    sans=\"${sans},IP:${ETCD_LB_VIP}\"\nfi\n\nsans=\"${sans},IP:127.0.0.1\"\
+  \n\nKUBE_SERVICE_IP=$(echo $PORTAL_NETWORK_CIDR | awk 'BEGIN{FS=\"[./]\"; OFS=\"\
+  .\"}{print $1,$2,$3,$4 + 1}')\n\nsans=\"${sans},IP:${KUBE_SERVICE_IP}\"\n\nsans=\"\
+  ${sans},DNS:kubernetes,DNS:kubernetes.default,DNS:kubernetes.default.svc,DNS:kubernetes.default.svc.cluster.local\"\
+  \n\necho \"sans is ${sans}\"\ncert_dir=/etc/kubernetes/certs\nmkdir -p \"$cert_dir\"\
+  \nCA_CERT=$cert_dir/ca.crt\n\nfunction generate_certificates {\n    _CERT=$cert_dir/${1}.crt\n\
+  \    _CSR=$cert_dir/${1}.csr\n    _KEY=$cert_dir/${1}.key\n    _CONF=$2\n    _CA_CERT_TYPE=$3\n\
+  \n    #Get a token by user credentials and trust\n    auth_json=$(cat << EOF\n{\n\
+  \    \"auth\": {\n        \"identity\": {\n            \"methods\": [\n        \
+  \        \"password\"\n            ],\n            \"password\": {\n           \
+  \     \"user\": {\n                    \"id\": \"$TRUSTEE_USER_ID\",\n         \
+  \           \"password\": \"$TRUSTEE_PASSWORD\"\n                }\n           \
+  \ }\n        },\n        \"scope\": {\n            \"OS-TRUST:trust\": {\n     \
+  \           \"id\": \"$TRUST_ID\"\n            }\n        }\n    }\n}\nEOF\n)\n\n\
+  \    content_type='Content-Type: application/json'\n    url=\"$AUTH_URL/auth/tokens\"\
+  \n    USER_TOKEN=`curl $VERIFY_CA -s -i -X POST -H \"$content_type\" -d \"$auth_json\"\
+  \ $url \\\n        | grep -i X-Subject-Token | awk '{print $2}' | tr -d '[[:space:]]'`\n\
+  \n    # Get CA certificate for this cluster. If the CA_CERT_TYPE is not etcd or\
+  \ front-proxy, it will return the default CA cert for kubelet\n    curl $VERIFY_CA\
+  \ -X GET \\\n        -H \"X-Auth-Token: $USER_TOKEN\" \\\n        -H \"OpenStack-API-Version:\
+  \ container-infra latest\" \\\n        $MAGNUM_URL/certificates/$CLUSTER_UUID\"\
+  ?ca_cert_type=\"${_CA_CERT_TYPE} | python -c 'import sys, json; print(json.load(sys.stdin)[\"\
+  pem\"])' > ${CA_CERT}\n\n    # Generate server's private key and csr\n    $ssh_cmd\
+  \ openssl genrsa -out \"${_KEY}\" 4096\n    chmod 400 \"${_KEY}\"\n    $ssh_cmd\
+  \ openssl req -new -days 1000 \\\n            -key \"${_KEY}\" \\\n            -out\
+  \ \"${_CSR}\" \\\n            -reqexts req_ext \\\n            -config \"${_CONF}\"\
+  \n\n    # Send csr to Magnum to have it signed\n    csr_req=$(python -c \"import\
+  \ json; fp = open('${_CSR}'); print(json.dumps({'ca_cert_type': '$_CA_CERT_TYPE',\
+  \ 'cluster_uuid': '$CLUSTER_UUID', 'csr': fp.read()})); fp.close()\")\n    curl\
+  \ $VERIFY_CA -X POST \\\n        -H \"X-Auth-Token: $USER_TOKEN\" \\\n        -H\
+  \ \"OpenStack-API-Version: container-infra latest\" \\\n        -H \"Content-Type:\
+  \ application/json\" \\\n        -d \"$csr_req\" \\\n        $MAGNUM_URL/certificates\
+  \ | python -c 'import sys, json; print(json.load(sys.stdin)[\"pem\"])' > ${_CERT}\n\
+  }\n\n# Create config for server's csr\ncat > ${cert_dir}/server.conf <<EOF\n[req]\n\
+  distinguished_name = req_distinguished_name\nreq_extensions     = req_ext\nprompt\
+  \ = no\n[req_distinguished_name]\nCN = kubernetes\n[req_ext]\nsubjectAltName = ${sans}\n\
+  extendedKeyUsage = clientAuth,serverAuth\nEOF\n\n#Kubelet Certs\ncat > ${cert_dir}/kubelet.conf\
+  \ <<EOF\n[req]\ndistinguished_name = req_distinguished_name\nreq_extensions    \
+  \ = req_ext\nprompt = no\n[req_distinguished_name]\nCN = system:node:${INSTANCE_NAME}\n\
+  O=system:nodes\nOU=OpenStack/Magnum\nC=US\nST=TX\nL=Austin\n[req_ext]\nsubjectAltName\
+  \ = ${sans}\nkeyUsage=critical,digitalSignature,keyEncipherment\nextendedKeyUsage=clientAuth,serverAuth\n\
+  EOF\n\n#admin Certs\ncat > ${cert_dir}/admin.conf <<EOF\n[req]\ndistinguished_name\
+  \ = req_distinguished_name\nreq_extensions     = req_ext\nprompt = no\n[req_distinguished_name]\n\
+  CN = admin\nO = system:masters\nOU=OpenStack/Magnum\nC=US\nST=TX\nL=Austin\n[req_ext]\n\
+  extendedKeyUsage= clientAuth\nEOF\n\ngenerate_certificates server ${cert_dir}/server.conf\
+  \ kubelet\ngenerate_certificates kubelet ${cert_dir}/kubelet.conf kubelet\ngenerate_certificates\
+  \ admin ${cert_dir}/admin.conf kubelet\n\n# Generate service account key and private\
+  \ key\necho -e \"${KUBE_SERVICE_ACCOUNT_KEY}\" > ${cert_dir}/service_account.key\n\
+  echo -e \"${KUBE_SERVICE_ACCOUNT_PRIVATE_KEY}\" > ${cert_dir}/service_account_private.key\n\
+  \n# Common certs and key are created for both etcd and kubernetes services.\n# Both\
+  \ etcd and kube user should have permission to access the certs and key.\nif [ -z\
+  \ \"`cat /etc/group | grep kube_etcd`\" ]; then\n    $ssh_cmd groupadd kube_etcd\n\
+  \    $ssh_cmd usermod -a -G kube_etcd etcd\n    $ssh_cmd usermod -a -G kube_etcd\
+  \ kube\n    $ssh_cmd chmod 550 \"${cert_dir}\"\n    $ssh_cmd chown -R kube:kube_etcd\
+  \ \"${cert_dir}\"\n    $ssh_cmd chmod 440 \"$cert_dir/server.key\"\nfi\n\n# Create\
+  \ certs for etcd\ncert_dir=/etc/etcd/certs\n$ssh_cmd mkdir -p \"$cert_dir\"\nCA_CERT=${cert_dir}/ca.crt\n\
+  \ncat > ${cert_dir}/server.conf <<EOF\n[req]\ndistinguished_name = req_distinguished_name\n\
+  req_extensions     = req_ext\nprompt = no\n[req_distinguished_name]\nCN = etcd\n\
+  [req_ext]\nsubjectAltName = ${sans}\nextendedKeyUsage = clientAuth,serverAuth\n\
+  EOF\n\ngenerate_certificates server ${cert_dir}/server.conf etcd\ngenerate_certificates\
+  \ admin ${cert_dir}/server.conf etcd\n\nif [ -z \"`cat /etc/group | grep kube_etcd`\"\
+  \ ]; then\n    $ssh_cmd chown -R etcd:kube_etcd \"${cert_dir}\"\nfi\n\n# Create\
+  \ certs for front-proxy\ncert_dir=/etc/kubernetes/certs/front-proxy\n$ssh_cmd mkdir\
+  \ -p \"$cert_dir\"\nCA_CERT=${cert_dir}/ca.crt\n\ncat > ${cert_dir}/server.conf\
+  \ <<EOF\n[req]\ndistinguished_name = req_distinguished_name\nreq_extensions    \
+  \ = req_ext\nprompt = no\n[req_distinguished_name]\nCN = front-proxy\n[req_ext]\n\
+  subjectAltName = ${sans}\nextendedKeyUsage = clientAuth,serverAuth\nEOF\n\ngenerate_certificates\
+  \ server ${cert_dir}/server.conf front-proxy\ngenerate_certificates admin ${cert_dir}/server.conf\
+  \ front-proxy\n\nif [ -z \"`cat /etc/group | grep kube_etcd`\" ]; then\n    $ssh_cmd\
+  \ chown -R kube:kube_etcd \"${cert_dir}\"\nfi\n\n# Copyright 2014 The Kubernetes\
+  \ Authors All rights reserved.\n#\n# Licensed under the Apache License, Version\
+  \ 2.0 (the \"License\");\n# you may not use this file except in compliance with\
+  \ the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n\
+  #\n# Unless required by applicable law or agreed to in writing, software\n# distributed\
+  \ under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES\
+  \ OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the\
+  \ specific language governing permissions and\n# limitations under the License.\n\
+  \nset +x\n. /etc/sysconfig/heat-params\nset -x\n\nset -o errexit\nset -o nounset\n\
+  set -o pipefail\n\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\n\
+  \nif [ \"$TLS_DISABLED\" == \"True\" ]; then\n    exit 0\nfi\n\nif [ \"$VERIFY_CA\"\
+  \ == \"True\" ]; then\n    VERIFY_CA=\"\"\nelse\n    VERIFY_CA=\"-k\"\nfi\n\nif\
+  \ [ -z \"${KUBE_NODE_IP}\" ]; then\n    KUBE_NODE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)\n\
+  fi\n\ncert_dir=/etc/kubernetes/certs\n\nmkdir -p \"$cert_dir\"\n\nCA_CERT=$cert_dir/ca.crt\n\
+  \nfunction generate_certificates {\n    _CERT=$cert_dir/${1}.crt\n    _CSR=$cert_dir/${1}.csr\n\
+  \    _KEY=$cert_dir/${1}.key\n    _CONF=$2\n    #Get a token by user credentials\
+  \ and trust\n    auth_json=$(cat << EOF\n{\n    \"auth\": {\n        \"identity\"\
+  : {\n            \"methods\": [\n                \"password\"\n            ],\n\
+  \            \"password\": {\n                \"user\": {\n                    \"\
+  id\": \"$TRUSTEE_USER_ID\",\n                    \"password\": \"$TRUSTEE_PASSWORD\"\
+  \n                }\n            }\n        },\n        \"scope\": {\n         \
+  \   \"OS-TRUST:trust\": {\n                \"id\": \"$TRUST_ID\"\n            }\n\
+  \        }\n    }\n}\nEOF\n)\n\n    content_type='Content-Type: application/json'\n\
+  \    url=\"$AUTH_URL/auth/tokens\"\n    USER_TOKEN=`curl $VERIFY_CA -s -i -X POST\
+  \ -H \"$content_type\" -d \"$auth_json\" $url \\\n        | grep -i X-Subject-Token\
+  \ | awk '{print $2}' | tr -d '[[:space:]]'`\n\n    # Get CA certificate for this\
+  \ cluster\n    curl $VERIFY_CA -X GET \\\n        -H \"X-Auth-Token: $USER_TOKEN\"\
+  \ \\\n        -H \"OpenStack-API-Version: container-infra latest\" \\\n        $MAGNUM_URL/certificates/$CLUSTER_UUID\
+  \ | python -c 'import sys, json; print(json.load(sys.stdin)[\"pem\"])' >> $CA_CERT\n\
+  \n    # Generate client's private key and csr\n    $ssh_cmd openssl genrsa -out\
+  \ \"${_KEY}\" 4096\n    chmod 400 \"${_KEY}\"\n    $ssh_cmd openssl req -new -days\
+  \ 1000 \\\n            -key \"${_KEY}\" \\\n            -out \"${_CSR}\" \\\n  \
+  \          -reqexts req_ext \\\n            -config \"${_CONF}\"\n\n    # Send csr\
+  \ to Magnum to have it signed\n    csr_req=$(python -c \"import json; fp = open('${_CSR}');\
+  \ print(json.dumps({'cluster_uuid': '$CLUSTER_UUID', 'csr': fp.read()})); fp.close()\"\
+  )\n    curl  $VERIFY_CA -X POST \\\n        -H \"X-Auth-Token: $USER_TOKEN\" \\\n\
+  \        -H \"OpenStack-API-Version: container-infra latest\" \\\n        -H \"\
+  Content-Type: application/json\" \\\n        -d \"$csr_req\" \\\n        $MAGNUM_URL/certificates\
+  \ | python -c 'import sys, json; print(json.load(sys.stdin)[\"pem\"])' > ${_CERT}\n\
+  }\n\n#Kubelet Certs\nHOSTNAME=$(cat /etc/hostname | head -1)\n\ncat > ${cert_dir}/kubelet.conf\
+  \ <<EOF\n[req]\ndistinguished_name = req_distinguished_name\nreq_extensions    \
+  \ = req_ext\nprompt = no\n[req_distinguished_name]\nCN = system:node:${INSTANCE_NAME}\n\
+  O=system:nodes\nOU=OpenStack/Magnum\nC=US\nST=TX\nL=Austin\n[req_ext]\nsubjectAltName\
+  \ = IP:${KUBE_NODE_IP},DNS:${INSTANCE_NAME},DNS:${HOSTNAME}\nkeyUsage=critical,digitalSignature,keyEncipherment\n\
+  extendedKeyUsage=clientAuth,serverAuth\nEOF\n\n#kube-proxy Certs\ncat > ${cert_dir}/proxy.conf\
+  \ <<EOF\n[req]\ndistinguished_name = req_distinguished_name\nreq_extensions    \
+  \ = req_ext\nprompt = no\n[req_distinguished_name]\nCN = system:kube-proxy\nO=system:node-proxier\n\
+  OU=OpenStack/Magnum\nC=US\nST=TX\nL=Austin\n[req_ext]\nkeyUsage=critical,digitalSignature,keyEncipherment\n\
+  extendedKeyUsage=clientAuth\nEOF\n\ngenerate_certificates kubelet ${cert_dir}/kubelet.conf\n\
+  generate_certificates proxy ${cert_dir}/proxy.conf\n\nchmod 550 \"${cert_dir}\"\n\
+  chmod 440 \"${cert_dir}/kubelet.key\"\nchmod 440 \"${cert_dir}/proxy.key\"\n\nstep=\"\
+  enable-cert-api-manager\"\nprintf \"Starting to run ${step}\\n\"\n\n. /etc/sysconfig/heat-params\n\
+  \nif [ \"$(echo \"${CERT_MANAGER_API}\" | tr '[:upper:]' '[:lower:]')\" = \"true\"\
+  \ ]; then\n    cert_dir=/etc/kubernetes/certs\n\n    echo -e \"${CA_KEY}\" > ${cert_dir}/ca.key\n\
+  \n    # chown kube:kube ${cert_dir}/ca.key\n    chmod 400 ${cert_dir}/ca.key\nfi\n\
+  \nprintf \"Finished running ${step}\\n\"\n\n. /etc/sysconfig/heat-params\n\nset\
+  \ -x\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\n\nif [ ! -z \"\
+  $HTTP_PROXY\" ]; then\n    export HTTP_PROXY\nfi\n\nif [ ! -z \"$HTTPS_PROXY\" ];\
+  \ then\n    export HTTPS_PROXY\nfi\n\nif [ ! -z \"$NO_PROXY\" ]; then\n    export\
+  \ NO_PROXY\nfi\n\nif [ -n \"$ETCD_VOLUME_SIZE\" ] && [ \"$ETCD_VOLUME_SIZE\" -gt\
+  \ 0 ]; then\n\n    attempts=60\n    while [ ${attempts} -gt 0 ]; do\n        device_name=$($ssh_cmd\
+  \ ls /dev/disk/by-id | grep ${ETCD_VOLUME:0:20} | head -n1)\n        if [ -n \"\
+  ${device_name}\" ]; then\n            break\n        fi\n        echo \"waiting\
+  \ for disk device\"\n        sleep 0.5\n        $ssh_cmd udevadm trigger\n     \
+  \   let attempts--\n    done\n\n    if [ -z \"${device_name}\" ]; then\n       \
+  \ echo \"ERROR: disk device does not exist\" >&2\n        exit 1\n    fi\n\n   \
+  \ device_path=/dev/disk/by-id/${device_name}\n    fstype=$($ssh_cmd blkid -s TYPE\
+  \ -o value ${device_path} || echo \"\")\n    if [ \"${fstype}\" != \"xfs\" ]; then\n\
+  \        $ssh_cmd mkfs.xfs -f ${device_path}\n    fi\n    $ssh_cmd mkdir -p /var/lib/etcd\n\
+  \    echo \"${device_path} /var/lib/etcd xfs defaults 0 0\" >> /etc/fstab\n    $ssh_cmd\
+  \ mount -a\n    $ssh_cmd chown -R etcd.etcd /var/lib/etcd\n    $ssh_cmd chmod 755\
+  \ /var/lib/etcd\n\nfi\n\nif [ \"$(echo $USE_PODMAN | tr '[:upper:]' '[:lower:]')\"\
+  \ == \"true\" ]; then\n    cat > /etc/systemd/system/etcd.service <<EOF\n[Unit]\n\
+  Description=Etcd server\nAfter=network-online.target\nWants=network-online.target\n\
+  \n[Service]\nEnvironmentFile=/etc/sysconfig/heat-params\nExecStartPre=mkdir -p /var/lib/etcd\n\
+  ExecStartPre=-/bin/podman rm etcd\nExecStart=/bin/podman run \\\\\n    --name etcd\
+  \ \\\\\n    --volume /etc/pki/ca-trust/extracted/pem:/etc/ssl/certs:ro,z \\\\\n\
+  \    --volume /etc/etcd:/etc/etcd:ro,z \\\\\n    --volume /var/lib/etcd:/var/lib/etcd:rshared,z\
+  \ \\\\\n    --net=host \\\\\n    ${CONTAINER_INFRA_PREFIX:-\"quay.io/coreos/\"}etcd:${ETCD_TAG}\
+  \ \\\\\n    /usr/local/bin/etcd \\\\\n    --config-file /etc/etcd/etcd.conf.yaml\n\
+  ExecStop=/bin/podman stop etcd\nTimeoutStartSec=10min\n\n[Install]\nWantedBy=multi-user.target\n\
+  EOF\nelse\n    _prefix=${CONTAINER_INFRA_PREFIX:-\"docker.io/openstackmagnum/\"\
+  }\n    $ssh_cmd atomic install \\\n    --system-package no \\\n    --system \\\n\
+  \    --storage ostree \\\n    --name=etcd ${_prefix}etcd:${ETCD_TAG}\nfi\n\n\nif\
+  \ [ -z \"$KUBE_NODE_IP\" ]; then\n    # FIXME(yuanying): Set KUBE_NODE_IP correctly\n\
+  \    KUBE_NODE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)\n\
+  fi\n\nmyip=\"${KUBE_NODE_IP}\"\ncert_dir=\"/etc/etcd/certs\"\nprotocol=\"https\"\
+  \n\nif [ \"$TLS_DISABLED\" = \"True\" ]; then\n    protocol=\"http\"\nfi\n\ncat\
+  \ > /etc/etcd/etcd.conf.yaml <<EOF\n# This is the configuration file for the etcd\
+  \ server.\n\n# Human-readable name for this member.\nname: \"${INSTANCE_NAME}\"\n\
+  \n# Path to the data directory.\ndata-dir: /var/lib/etcd/default.etcd\n\n# List\
+  \ of comma separated URLs to listen on for peer traffic.\nlisten-peer-urls: \"$protocol://$myip:2380\"\
+  \n\n# List of comma separated URLs to listen on for client traffic.\nlisten-client-urls:\
+  \ \"$protocol://$myip:2379,http://127.0.0.1:2379\"\n\n# List of this member's peer\
+  \ URLs to advertise to the rest of the cluster.\n# The URLs needed to be a comma-separated\
+  \ list.\ninitial-advertise-peer-urls: \"$protocol://$myip:2380\"\n\n# List of this\
+  \ member's client URLs to advertise to the public.\n# The URLs needed to be a comma-separated\
+  \ list.\nadvertise-client-urls: \"$protocol://$myip:2379,http://127.0.0.1:2379\"\
+  \n\n# Discovery URL used to bootstrap the cluster.\ndiscovery: \"$ETCD_DISCOVERY_URL\"\
+  \n\nEOF\n\nif [ -n \"$HTTP_PROXY\" ]; then\n    cat >> /etc/etcd/etcd.conf.yaml\
+  \ <<EOF\n# HTTP proxy to use for traffic to discovery service.\ndiscovery-proxy:\
+  \ $HTTP_PROXY\n\nEOF\nfi\n\nif [ \"$TLS_DISABLED\" = \"False\" ]; then\n\n    cat\
+  \ >> /etc/etcd/etcd.conf.yaml <<EOF\nclient-transport-security:\n  # Path to the\
+  \ client server TLS cert file.\n  cert-file: $cert_dir/server.crt\n\n  # Path to\
+  \ the client server TLS key file.\n  key-file: $cert_dir/server.key\n\n  # Enable\
+  \ client cert authentication.\n  client-cert-auth: true\n\n  # Path to the client\
+  \ server TLS trusted CA cert file.\n  trusted-ca-file: $cert_dir/ca.crt\n\npeer-transport-security:\n\
+  \  # Path to the peer server TLS cert file.\n  cert-file: $cert_dir/server.crt\n\
+  \n  # Path to the peer server TLS key file.\n  key-file: $cert_dir/server.key\n\n\
+  \  # Enable peer client cert authentication.\n  client-cert-auth: true\n\n  # Path\
+  \ to the peer server TLS trusted CA cert file.\n  trusted-ca-file: $cert_dir/ca.crt\n\
+  EOF\nfi\n# backwards compatible conf file\ncat > /etc/etcd/etcd.conf <<EOF\nETCD_NAME=\"\
+  $INSTANCE_NAME\"\nETCD_DATA_DIR=\"/var/lib/etcd/default.etcd\"\nETCD_LISTEN_CLIENT_URLS=\"\
+  $protocol://$myip:2379,http://127.0.0.1:2379\"\nETCD_LISTEN_PEER_URLS=\"$protocol://$myip:2380\"\
+  \nETCD_ADVERTISE_CLIENT_URLS=\"$protocol://$myip:2379,http://127.0.0.1:2379\"\n\
+  ETCD_INITIAL_ADVERTISE_PEER_URLS=\"$protocol://$myip:2380\"\nETCD_DISCOVERY=\"$ETCD_DISCOVERY_URL\"\
+  \nEOF\n\nif [ \"$TLS_DISABLED\" = \"False\" ]; then\n\ncat >> /etc/etcd/etcd.conf\
+  \ <<EOF\nETCD_CA_FILE=$cert_dir/ca.crt\nETCD_TRUSTED_CA_FILE=$cert_dir/ca.crt\n\
+  ETCD_CERT_FILE=$cert_dir/server.crt\nETCD_KEY_FILE=$cert_dir/server.key\nETCD_CLIENT_CERT_AUTH=true\n\
+  ETCD_PEER_CA_FILE=$cert_dir/ca.crt\nETCD_PEER_TRUSTED_CA_FILE=$cert_dir/ca.crt\n\
+  ETCD_PEER_CERT_FILE=$cert_dir/server.crt\nETCD_PEER_KEY_FILE=$cert_dir/server.key\n\
+  ETCD_PEER_CLIENT_CERT_AUTH=true\nEOF\n\nfi\n\nif [ -n \"$HTTP_PROXY\" ]; then\n\
+  \    echo \"ETCD_DISCOVERY_PROXY=$HTTP_PROXY\" >> /etc/etcd/etcd.conf\nfi\n\nset\
+  \ +x\n. /etc/sysconfig/heat-params\nset -x\n\n$ssh_cmd mkdir -p /etc/kubernetes/\n\
+  \nif [ -n \"${TRUST_ID}\" ]; then\n    KUBE_OS_CLOUD_CONFIG=/etc/kubernetes/cloud-config\n\
+  \n    # Generate a the configuration for Kubernetes services\n    # to talk to OpenStack\
+  \ Neutron and Cinder\n    cat > ${KUBE_OS_CLOUD_CONFIG} <<EOF\n[Global]\nauth-url=$AUTH_URL\n\
+  user-id=$TRUSTEE_USER_ID\npassword=$TRUSTEE_PASSWORD\ntrust-id=$TRUST_ID\nca-file=/etc/kubernetes/ca-bundle.crt\n\
+  [LoadBalancer]\nuse-octavia=$OCTAVIA_ENABLED\nsubnet-id=$CLUSTER_SUBNET\nfloating-network-id=$EXTERNAL_NETWORK_ID\n\
+  lb-provider=$OCTAVIA_PROVIDER\nlb-method=$OCTAVIA_LB_ALGORITHM\ncreate-monitor=$OCTAVIA_LB_HEALTHCHECK\n\
+  monitor-delay=1m\nmonitor-timeout=30s\nmonitor-max-retries=3\n[BlockStorage]\nbs-version=v2\n\
+  EOF\n\n    # Provide optional region parameter if it's set.\n    if [ -n \"${REGION_NAME}\"\
+  \ ]; then\n        sed -i '/ca-file/a region='${REGION_NAME}'' $KUBE_OS_CLOUD_CONFIG\n\
+  \    fi\n\n    # backwards compatibility, some apps may expect this file from previous\
+  \ magnum versions.\n    $ssh_cmd cp ${KUBE_OS_CLOUD_CONFIG} /etc/kubernetes/kube_openstack_config\n\
+  \n    # Append additional networking config to config file provided to openstack\n\
+  \    # cloud controller manager (not supported by in-tree Cinder).\n    $ssh_cmd\
+  \ cp ${KUBE_OS_CLOUD_CONFIG} ${KUBE_OS_CLOUD_CONFIG}-occm\n    cat >> ${KUBE_OS_CLOUD_CONFIG}-occm\
+  \ <<EOF\n[Networking]\ninternal-network-name=$CLUSTER_NETWORK_NAME\nEOF\nfi\n\n\
+  set +x\n. /etc/sysconfig/heat-params\nset -x\nset -e\n\necho \"configuring kubernetes\
+  \ (master)\"\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\n\nif\
+  \ [ ! -z \"$HTTP_PROXY\" ]; then\n    export HTTP_PROXY\nfi\n\nif [ ! -z \"$HTTPS_PROXY\"\
+  \ ]; then\n    export HTTPS_PROXY\nfi\n\nif [ ! -z \"$NO_PROXY\" ]; then\n    export\
+  \ NO_PROXY\nfi\n\n$ssh_cmd rm -rf /etc/cni/net.d/*\n$ssh_cmd rm -rf /var/lib/cni/*\n\
+  $ssh_cmd rm -rf /opt/cni/*\n$ssh_cmd mkdir -p /opt/cni/bin\n$ssh_cmd mkdir -p /etc/cni/net.d/\n\
+  \nif [ \"$NETWORK_DRIVER\" = \"calico\" ]; then\n    echo \"net.ipv4.conf.all.rp_filter\
+  \ = 1\" >> /etc/sysctl.conf\n    $ssh_cmd sysctl -p\n    if [ \"`systemctl status\
+  \ NetworkManager.service | grep -o \"Active: active\"`\" = \"Active: active\" ];\
+  \ then\n        CALICO_NM=/etc/NetworkManager/conf.d/calico.conf\n        [ -f ${CALICO_NM}\
+  \ ] || {\n        echo \"Writing File: $CALICO_NM\"\n        mkdir -p $(dirname\
+  \ ${CALICO_NM})\n        cat << EOF > ${CALICO_NM}\n[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:tunl*\n\
+  EOF\n}\n        systemctl restart NetworkManager\n    fi\nelif [ \"$NETWORK_DRIVER\"\
+  \ = \"flannel\" ]; then\n    $ssh_cmd modprobe -a vxlan br_netfilter\n    cat <<EOF\
+  \ > /etc/modules-load.d/flannel.conf\nvxlan\nbr_netfilter\nEOF\nfi\n\n\nKUBE_MASTER_URI=\"\
+  https://127.0.0.1:$KUBE_API_PORT\"\nmkdir -p /srv/magnum/kubernetes/\ncat > /etc/kubernetes/config\
+  \ <<EOF\nKUBE_LOG_LEVEL=\"--v=3\"\nEOF\ncat > /etc/kubernetes/kubelet <<EOF\nKUBELET_ARGS=\"\
+  --fail-swap-on=false\"\nEOF\n\ncat > /etc/kubernetes/apiserver <<EOF\nKUBE_ETCD_SERVERS=\"\
+  --etcd-servers=http://127.0.0.1:2379,http://127.0.0.1:4001\"\nKUBE_SERVICE_ADDRESSES=\"\
+  --service-cluster-ip-range=10.254.0.0/16\"\nKUBE_ADMISSION_CONTROL=\"--admission-control=NodeRestriction,${ADMISSION_CONTROL_LIST}\"\
+  \nKUBE_API_ARGS=\"\"\nEOF\n\ncat > /etc/kubernetes/controller-manager <<EOF\nKUBE_CONTROLLER_MANAGER_ARGS=\"\
+  \"\nEOF\ncat > /etc/kubernetes/scheduler<<EOF\nKUBE_SCHEDULER_ARGS=\"\"\nEOF\ncat\
+  \ > /etc/kubernetes/proxy <<EOF\nKUBE_PROXY_ARGS=\"\"\nEOF\n\n\nif [ \"$(echo $USE_PODMAN\
+  \ | tr '[:upper:]' '[:lower:]')\" == \"true\" ]; then\n    cat > /etc/systemd/system/kube-apiserver.service\
+  \ <<EOF\n[Unit]\nDescription=kube-apiserver via Hyperkube\n[Service]\nEnvironmentFile=/etc/sysconfig/heat-params\n\
+  EnvironmentFile=/etc/kubernetes/config\nEnvironmentFile=/etc/kubernetes/apiserver\n\
+  ExecStartPre=/bin/mkdir -p /etc/kubernetes/\nExecStartPre=-/usr/bin/podman rm kube-apiserver\n\
+  ExecStart=/bin/bash -c '/usr/bin/podman run --name kube-apiserver \\\\\n    --net\
+  \ host \\\\\n    --entrypoint /hyperkube \\\\\n    --volume /etc/kubernetes:/etc/kubernetes:ro,z\
+  \ \\\\\n    --volume /usr/lib/os-release:/etc/os-release:ro \\\\\n    --volume /etc/ssl/certs:/etc/ssl/certs:ro\
+  \ \\\\\n    --volume /run:/run \\\\\n    --volume /etc/pki/tls/certs:/usr/share/ca-certificates:ro\
+  \ \\\\\n    \\${CONTAINER_INFRA_PREFIX:-\\${HYPERKUBE_PREFIX}}hyperkube:\\${KUBE_TAG}\
+  \ \\\\\n    kube-apiserver \\\\\n    \\$KUBE_LOG_LEVEL \\$KUBE_ETCD_SERVERS \\$KUBE_API_ADDRESS\
+  \ \\$KUBELET_PORT \\$KUBE_SERVICE_ADDRESSES \\$KUBE_ADMISSION_CONTROL \\$KUBE_API_ARGS'\n\
+  ExecStop=-/usr/bin/podman stop kube-apiserver\nDelegate=yes\nRestart=always\nRestartSec=10\n\
+  TimeoutStartSec=10min\n[Install]\nWantedBy=multi-user.target\nEOF\n\n    cat > /etc/systemd/system/kube-controller-manager.service\
+  \ <<EOF\n[Unit]\nDescription=kube-controller-manager via Hyperkube\n[Service]\n\
+  EnvironmentFile=/etc/sysconfig/heat-params\nEnvironmentFile=/etc/kubernetes/config\n\
+  EnvironmentFile=/etc/kubernetes/controller-manager\nExecStartPre=/bin/mkdir -p /etc/kubernetes/\n\
+  ExecStartPre=-/usr/bin/podman rm kube-controller-manager\nExecStart=/bin/bash -c\
+  \ '/usr/bin/podman run --name kube-controller-manager \\\\\n    --net host \\\\\n\
+  \    --entrypoint /hyperkube \\\\\n    --volume /etc/kubernetes:/etc/kubernetes:ro,z\
+  \ \\\\\n    --volume /usr/lib/os-release:/etc/os-release:ro \\\\\n    --volume /etc/ssl/certs:/etc/ssl/certs:ro\
+  \ \\\\\n    --volume /run:/run \\\\\n    --volume /etc/pki/tls/certs:/usr/share/ca-certificates:ro\
+  \ \\\\\n    \\${CONTAINER_INFRA_PREFIX:-\\${HYPERKUBE_PREFIX}}hyperkube:\\${KUBE_TAG}\
+  \ \\\\\n    kube-controller-manager \\\\\n    --secure-port=0 \\\\\n    \\$KUBE_LOG_LEVEL\
+  \ \\$KUBE_MASTER \\$KUBE_CONTROLLER_MANAGER_ARGS'\nExecStop=-/usr/bin/podman stop\
+  \ kube-controller-manager\nDelegate=yes\nRestart=always\nRestartSec=10\nTimeoutStartSec=10min\n\
+  [Install]\nWantedBy=multi-user.target\nEOF\n\n    cat > /etc/systemd/system/kube-scheduler.service\
+  \ <<EOF\n[Unit]\nDescription=kube-scheduler via Hyperkube\n[Service]\nEnvironmentFile=/etc/sysconfig/heat-params\n\
+  EnvironmentFile=/etc/kubernetes/config\nEnvironmentFile=/etc/kubernetes/scheduler\n\
+  ExecStartPre=/bin/mkdir -p /etc/kubernetes/\nExecStartPre=-/usr/bin/podman rm kube-scheduler\n\
+  ExecStart=/bin/bash -c '/usr/bin/podman run --name kube-scheduler \\\\\n    --net\
+  \ host \\\\\n    --entrypoint /hyperkube \\\\\n    --volume /etc/kubernetes:/etc/kubernetes:ro,z\
+  \ \\\\\n    --volume /usr/lib/os-release:/etc/os-release:ro \\\\\n    --volume /etc/ssl/certs:/etc/ssl/certs:ro\
+  \ \\\\\n    --volume /run:/run \\\\\n    --volume /etc/pki/tls/certs:/usr/share/ca-certificates:ro\
+  \ \\\\\n    \\${CONTAINER_INFRA_PREFIX:-\\${HYPERKUBE_PREFIX}}hyperkube:\\${KUBE_TAG}\
+  \ \\\\\n    kube-scheduler \\\\\n    \\$KUBE_LOG_LEVEL \\$KUBE_MASTER \\$KUBE_SCHEDULER_ARGS'\n\
+  ExecStop=-/usr/bin/podman stop kube-scheduler\nDelegate=yes\nRestart=always\nRestartSec=10\n\
+  TimeoutStartSec=10min\n[Install]\nWantedBy=multi-user.target\nEOF\n\n\n\n    cat\
+  \ > /etc/systemd/system/kubelet.service <<EOF\n[Unit]\nDescription=Kubelet via Hyperkube\
+  \ (System Container)\nWants=rpc-statd.service\n\n[Service]\nEnvironmentFile=/etc/sysconfig/heat-params\n\
+  EnvironmentFile=/etc/kubernetes/config\nEnvironmentFile=/etc/kubernetes/kubelet\n\
+  ExecStartPre=/bin/mkdir -p /etc/kubernetes/cni/net.d\nExecStartPre=/bin/mkdir -p\
+  \ /etc/kubernetes/manifests\nExecStartPre=/bin/mkdir -p /var/lib/calico\nExecStartPre=/bin/mkdir\
+  \ -p /var/lib/containerd\nExecStartPre=/bin/mkdir -p /var/lib/docker\nExecStartPre=/bin/mkdir\
+  \ -p /var/lib/kubelet/volumeplugins\nExecStartPre=/bin/mkdir -p /opt/cni/bin\nExecStartPre=-/usr/bin/podman\
+  \ rm kubelet\nExecStart=/bin/bash -c '/usr/bin/podman run --name kubelet \\\\\n\
+  \    --privileged \\\\\n    --pid host \\\\\n    --network host \\\\\n    --entrypoint\
+  \ /hyperkube \\\\\n    --volume /:/rootfs:rslave,ro \\\\\n    --volume /etc/cni/net.d:/etc/cni/net.d:ro,z\
+  \ \\\\\n    --volume /etc/kubernetes:/etc/kubernetes:ro,z \\\\\n    --volume /usr/lib/os-release:/usr/lib/os-release:ro\
+  \ \\\\\n    --volume /etc/ssl/certs:/etc/ssl/certs:ro \\\\\n    --volume /lib/modules:/lib/modules:ro\
+  \ \\\\\n    --volume /run:/run \\\\\n    --volume /dev:/dev \\\\\n    --volume /sys/fs/cgroup:/sys/fs/cgroup\
+  \ \\\\\n    --volume /etc/pki/tls/certs:/usr/share/ca-certificates:ro \\\\\n   \
+  \ --volume /var/lib/calico:/var/lib/calico \\\\\n    --volume /var/lib/docker:/var/lib/docker\
+  \ \\\\\n    --volume /var/lib/containerd:/var/lib/containerd \\\\\n    --volume\
+  \ /var/lib/kubelet:/var/lib/kubelet:rshared,z \\\\\n    --volume /var/log:/var/log\
+  \ \\\\\n    --volume /var/run:/var/run \\\\\n    --volume /var/run/lock:/var/run/lock:z\
+  \ \\\\\n    --volume /opt/cni/bin:/opt/cni/bin:z \\\\\n    --volume /etc/machine-id:/etc/machine-id\
+  \ \\\\\n    \\${CONTAINER_INFRA_PREFIX:-\\${HYPERKUBE_PREFIX}}hyperkube:\\${KUBE_TAG}\
+  \ \\\\\n    kubelet \\\\\n    \\$KUBE_LOG_LEVEL \\$KUBELET_API_SERVER \\$KUBELET_ADDRESS\
+  \ \\$KUBELET_PORT \\$KUBELET_HOSTNAME \\$KUBELET_ARGS'\nExecStop=-/usr/bin/podman\
+  \ stop kubelet\nDelegate=yes\nRestart=always\nRestartSec=10\nTimeoutStartSec=10min\n\
+  [Install]\nWantedBy=multi-user.target\nEOF\n\n    cat > /etc/systemd/system/kube-proxy.service\
+  \ <<EOF\n[Unit]\nDescription=kube-proxy via Hyperkube\n[Service]\nEnvironmentFile=/etc/sysconfig/heat-params\n\
+  EnvironmentFile=/etc/kubernetes/config\nEnvironmentFile=/etc/kubernetes/proxy\n\
+  ExecStartPre=/bin/mkdir -p /etc/kubernetes/\nExecStartPre=-/usr/bin/podman rm kube-proxy\n\
+  ExecStart=/bin/bash -c '/usr/bin/podman run --name kube-proxy \\\\\n    --privileged\
+  \ \\\\\n    --net host \\\\\n    --entrypoint /hyperkube \\\\\n    --volume /etc/kubernetes:/etc/kubernetes:ro,z\
+  \ \\\\\n    --volume /usr/lib/os-release:/etc/os-release:ro \\\\\n    --volume /etc/ssl/certs:/etc/ssl/certs:ro\
+  \ \\\\\n    --volume /run:/run \\\\\n    --volume /sys/fs/cgroup:/sys/fs/cgroup\
+  \ \\\\\n    --volume /lib/modules:/lib/modules:ro \\\\\n    --volume /etc/pki/tls/certs:/usr/share/ca-certificates:ro\
+  \ \\\\\n    \\${CONTAINER_INFRA_PREFIX:-\\${HYPERKUBE_PREFIX}}hyperkube:\\${KUBE_TAG}\
+  \ \\\\\n    kube-proxy \\\\\n    \\$KUBE_LOG_LEVEL \\$KUBE_MASTER \\$KUBE_PROXY_ARGS'\n\
+  ExecStop=-/usr/bin/podman stop kube-proxy\nDelegate=yes\nRestart=always\nRestartSec=10\n\
+  TimeoutStartSec=10min\n[Install]\nWantedBy=multi-user.target\nEOF\nelse\n    _prefix=${CONTAINER_INFRA_PREFIX:-docker.io/openstackmagnum/}\n\
+  \    _addtl_mounts=',{\"type\":\"bind\",\"source\":\"/opt/cni\",\"destination\"\
+  :\"/opt/cni\",\"options\":[\"bind\",\"rw\",\"slave\",\"mode=777\"]},{\"type\":\"\
+  bind\",\"source\":\"/var/lib/docker\",\"destination\":\"/var/lib/docker\",\"options\"\
+  :[\"bind\",\"rw\",\"slave\",\"mode=755\"]}'\n    mkdir -p /srv/magnum/kubernetes/\n\
+  \    cat > /srv/magnum/kubernetes/install-kubernetes.sh <<EOF\n#!/bin/bash -x\n\
+  atomic install --storage ostree --system --set=ADDTL_MOUNTS='${_addtl_mounts}' --system-package=no\
+  \ --name=kubelet ${_prefix}kubernetes-kubelet:${KUBE_TAG}\natomic install --storage\
+  \ ostree --system --system-package=no --name=kube-apiserver ${_prefix}kubernetes-apiserver:${KUBE_TAG}\n\
+  atomic install --storage ostree --system --system-package=no --name=kube-controller-manager\
+  \ ${_prefix}kubernetes-controller-manager:${KUBE_TAG}\natomic install --storage\
+  \ ostree --system --system-package=no --name=kube-scheduler ${_prefix}kubernetes-scheduler:${KUBE_TAG}\n\
+  atomic install --storage ostree --system --system-package=no --name=kube-proxy ${_prefix}kubernetes-proxy:${KUBE_TAG}\n\
+  EOF\n    chmod +x /srv/magnum/kubernetes/install-kubernetes.sh\n    $ssh_cmd \"\
+  /srv/magnum/kubernetes/install-kubernetes.sh\"\nfi\n\nCERT_DIR=/etc/kubernetes/certs\n\
+  \n# kube-proxy config\nPROXY_KUBECONFIG=/etc/kubernetes/proxy-kubeconfig.yaml\n\
+  KUBE_PROXY_ARGS=\"--kubeconfig=${PROXY_KUBECONFIG} --cluster-cidr=${PODS_NETWORK_CIDR}\
+  \ --hostname-override=${INSTANCE_NAME}\"\ncat > /etc/kubernetes/proxy << EOF\nKUBE_PROXY_ARGS=\"\
+  ${KUBE_PROXY_ARGS} ${KUBEPROXY_OPTIONS}\"\nEOF\n\ncat << EOF >> ${PROXY_KUBECONFIG}\n\
+  apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority: ${CERT_DIR}/ca.crt\n\
+  \    server: ${KUBE_MASTER_URI}\n  name: ${CLUSTER_UUID}\ncontexts:\n- context:\n\
+  \    cluster: ${CLUSTER_UUID}\n    user: kube-proxy\n  name: default\ncurrent-context:\
+  \ default\nkind: Config\npreferences: {}\nusers:\n- name: kube-proxy\n  user:\n\
+  \    as-user-extra: {}\n    client-certificate: ${CERT_DIR}/proxy.crt\n    client-key:\
+  \ ${CERT_DIR}/proxy.key\nEOF\n\nsed -i '\n    /^KUBE_ALLOW_PRIV=/ s/=.*/=\"--allow-privileged='\"\
+  $KUBE_ALLOW_PRIV\"'\"/\n' /etc/kubernetes/config\n\nKUBE_API_ARGS=\"--runtime-config=api/all=true\"\
+  \nKUBE_API_ARGS=\"$KUBE_API_ARGS --allow-privileged=$KUBE_ALLOW_PRIV\"\nKUBE_API_ARGS=\"\
+  $KUBE_API_ARGS --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP\"\
+  \nKUBE_API_ARGS=\"$KUBE_API_ARGS $KUBEAPI_OPTIONS\"\nKUBE_API_ADDRESS=\"--bind-address=0.0.0.0\
+  \ --secure-port=$KUBE_API_PORT\"\nKUBE_API_ARGS=\"$KUBE_API_ARGS --authorization-mode=Node,RBAC\
+  \ --tls-cert-file=$CERT_DIR/server.crt\"\nKUBE_API_ARGS=\"$KUBE_API_ARGS --tls-private-key-file=$CERT_DIR/server.key\"\
+  \nKUBE_API_ARGS=\"$KUBE_API_ARGS --client-ca-file=$CERT_DIR/ca.crt\"\nKUBE_API_ARGS=\"\
+  $KUBE_API_ARGS --service-account-key-file=${CERT_DIR}/service_account.key\"\nKUBE_API_ARGS=\"\
+  $KUBE_API_ARGS --service-account-signing-key-file=${CERT_DIR}/service_account_private.key\"\
+  \nKUBE_API_ARGS=\"$KUBE_API_ARGS --service-account-issuer=https://kubernetes.default.svc.cluster.local\"\
+  \nKUBE_API_ARGS=\"$KUBE_API_ARGS --kubelet-certificate-authority=${CERT_DIR}/ca.crt\
+  \ --kubelet-client-certificate=${CERT_DIR}/server.crt --kubelet-client-key=${CERT_DIR}/server.key\"\
+  \n# Allow for metrics-server/aggregator communication\nKUBE_API_ARGS=\"${KUBE_API_ARGS}\
+  \ \\\n    --proxy-client-cert-file=${CERT_DIR}/front-proxy/server.crt \\\n    --proxy-client-key-file=${CERT_DIR}/front-proxy/server.key\
+  \ \\\n    --requestheader-allowed-names=front-proxy,kube,kubernetes \\\n    --requestheader-client-ca-file=${CERT_DIR}/front-proxy/ca.crt\
+  \ \\\n    --requestheader-extra-headers-prefix=X-Remote-Extra- \\\n    --requestheader-group-headers=X-Remote-Group\
+  \ \\\n    --requestheader-username-headers=X-Remote-User\"\n\nKUBE_ADMISSION_CONTROL=\"\
+  \"\nif [ -n \"${ADMISSION_CONTROL_LIST}\" ] && [ \"${TLS_DISABLED}\" == \"False\"\
+  \ ]; then\n    KUBE_ADMISSION_CONTROL=\"--admission-control=NodeRestriction,${ADMISSION_CONTROL_LIST}\"\
+  \nfi\n\nif [ \"$(echo \"${CLOUD_PROVIDER_ENABLED}\" | tr '[:upper:]' '[:lower:]')\"\
+  \ = \"true\" ]; then\n    KUBE_API_ARGS=\"$KUBE_API_ARGS --cloud-provider=external\"\
+  \nfi\n\nif [ \"$KEYSTONE_AUTH_ENABLED\" == \"True\" ]; then\n    KEYSTONE_WEBHOOK_CONFIG=/etc/kubernetes/keystone_webhook_config.yaml\n\
+  \n    [ -f ${KEYSTONE_WEBHOOK_CONFIG} ] || {\necho \"Writing File: $KEYSTONE_WEBHOOK_CONFIG\"\
+  \nmkdir -p $(dirname ${KEYSTONE_WEBHOOK_CONFIG})\ncat << EOF > ${KEYSTONE_WEBHOOK_CONFIG}\n\
+  ---\napiVersion: v1\nkind: Config\npreferences: {}\nclusters:\n  - cluster:\n  \
+  \    insecure-skip-tls-verify: true\n      server: https://127.0.0.1:8443/webhook\n\
+  \    name: webhook\nusers:\n  - name: webhook\ncontexts:\n  - context:\n      cluster:\
+  \ webhook\n      user: webhook\n    name: webhook\ncurrent-context: webhook\nEOF\n\
+  }\n    KUBE_API_ARGS=\"$KUBE_API_ARGS --authentication-token-webhook-config-file=/etc/kubernetes/keystone_webhook_config.yaml\
+  \ --authorization-webhook-config-file=/etc/kubernetes/keystone_webhook_config.yaml\"\
+  \n    webhook_auth=\"--authorization-mode=Node,Webhook,RBAC\"\n    KUBE_API_ARGS=${KUBE_API_ARGS/--authorization-mode=Node,RBAC/$webhook_auth}\n\
+  fi\n\nsed -i '\n    /^KUBE_API_ADDRESS=/ s/=.*/=\"'\"${KUBE_API_ADDRESS}\"'\"/\n\
+  \    /^KUBE_SERVICE_ADDRESSES=/ s|=.*|=\"--service-cluster-ip-range='\"$PORTAL_NETWORK_CIDR\"\
+  '\"|\n    /^KUBE_API_ARGS=/ s|=.*|=\"'\"${KUBE_API_ARGS}\"'\"|\n    /^KUBE_ETCD_SERVERS=/\
+  \ s/=.*/=\"--etcd-servers=http:\\/\\/127.0.0.1:2379\"/\n    /^KUBE_ADMISSION_CONTROL=/\
+  \ s/=.*/=\"'\"${KUBE_ADMISSION_CONTROL}\"'\"/\n' /etc/kubernetes/apiserver\n\nADMIN_KUBECONFIG=/etc/kubernetes/admin.conf\n\
+  cat << EOF >> ${ADMIN_KUBECONFIG}\napiVersion: v1\nclusters:\n- cluster:\n    certificate-authority:\
+  \ ${CERT_DIR}/ca.crt\n    server: ${KUBE_MASTER_URI}\n  name: ${CLUSTER_UUID}\n\
+  contexts:\n- context:\n    cluster: ${CLUSTER_UUID}\n    user: admin\n  name: default\n\
+  current-context: default\nkind: Config\npreferences: {}\nusers:\n- name: admin\n\
+  \  user:\n    as-user-extra: {}\n    client-certificate: ${CERT_DIR}/admin.crt\n\
+  \    client-key: ${CERT_DIR}/admin.key\nEOF\necho \"export KUBECONFIG=${ADMIN_KUBECONFIG}\"\
+  \ >> /etc/bashrc\nchown root:root ${ADMIN_KUBECONFIG}\nchmod 600 ${ADMIN_KUBECONFIG}\n\
+  export KUBECONFIG=${ADMIN_KUBECONFIG}\n\n# Add controller manager args\nKUBE_CONTROLLER_MANAGER_ARGS=\"\
+  --leader-elect=true --kubeconfig=/etc/kubernetes/admin.conf\"\nKUBE_CONTROLLER_MANAGER_ARGS=\"\
+  $KUBE_CONTROLLER_MANAGER_ARGS --cluster-name=${CLUSTER_UUID}\"\nKUBE_CONTROLLER_MANAGER_ARGS=\"\
+  ${KUBE_CONTROLLER_MANAGER_ARGS} --allocate-node-cidrs=true\"\nKUBE_CONTROLLER_MANAGER_ARGS=\"\
+  ${KUBE_CONTROLLER_MANAGER_ARGS} --cluster-cidr=${PODS_NETWORK_CIDR}\"\nKUBE_CONTROLLER_MANAGER_ARGS=\"\
+  $KUBE_CONTROLLER_MANAGER_ARGS $KUBECONTROLLER_OPTIONS\"\nif [ -n \"${ADMISSION_CONTROL_LIST}\"\
+  \ ] && [ \"${TLS_DISABLED}\" == \"False\" ]; then\n    KUBE_CONTROLLER_MANAGER_ARGS=\"\
+  $KUBE_CONTROLLER_MANAGER_ARGS --service-account-private-key-file=$CERT_DIR/service_account_private.key\
+  \ --root-ca-file=$CERT_DIR/ca.crt\"\nfi\n\nif [ \"$(echo \"${CLOUD_PROVIDER_ENABLED}\"\
+  \ | tr '[:upper:]' '[:lower:]')\" = \"true\" ]; then\n    KUBE_CONTROLLER_MANAGER_ARGS=\"\
+  $KUBE_CONTROLLER_MANAGER_ARGS --cloud-provider=external\"\n    if [ \"$(echo \"\
+  ${VOLUME_DRIVER}\" | tr '[:upper:]' '[:lower:]')\" = \"cinder\" ] && [ \"$(echo\
+  \ \"${CINDER_CSI_ENABLED}\" | tr '[:upper:]' '[:lower:]')\" != \"true\" ]; then\n\
+  \        KUBE_CONTROLLER_MANAGER_ARGS=\"$KUBE_CONTROLLER_MANAGER_ARGS --external-cloud-volume-plugin=openstack\
+  \ --cloud-config=/etc/kubernetes/cloud-config\"\n    fi\nfi\n\n\nif [ \"$(echo $CERT_MANAGER_API\
+  \ | tr '[:upper:]' '[:lower:]')\" = \"true\" ]; then\n    KUBE_CONTROLLER_MANAGER_ARGS=\"\
+  $KUBE_CONTROLLER_MANAGER_ARGS --cluster-signing-cert-file=$CERT_DIR/ca.crt --cluster-signing-key-file=$CERT_DIR/ca.key\"\
+  \nfi\n\nsed -i '\n    /^KUBELET_ADDRESSES=/ s/=.*/=\"--machines='\"\"'\"/\n    /^KUBE_CONTROLLER_MANAGER_ARGS=/\
+  \ s#\\(KUBE_CONTROLLER_MANAGER_ARGS\\).*#\\1=\"'\"${KUBE_CONTROLLER_MANAGER_ARGS}\"\
+  '\"#\n' /etc/kubernetes/controller-manager\n\nsed -i '/^KUBE_SCHEDULER_ARGS=/ s#=.*#=\"\
+  --leader-elect=true --kubeconfig=/etc/kubernetes/admin.conf\"#' /etc/kubernetes/scheduler\n\
+  \n$ssh_cmd mkdir -p /etc/kubernetes/manifests\nKUBELET_ARGS=\"--register-node=true\
+  \ --pod-manifest-path=/etc/kubernetes/manifests --hostname-override=${INSTANCE_NAME}\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --pod-infra-container-image=${CONTAINER_INFRA_PREFIX:-gcr.io/google_containers/}pause:3.1\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --cluster_dns=${DNS_SERVICE_IP} --cluster_domain=${DNS_CLUSTER_DOMAIN}\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --resolv-conf=/run/systemd/resolve/resolv.conf\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --volume-plugin-dir=/var/lib/kubelet/volumeplugins\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} ${KUBELET_OPTIONS}\"\n\nif [ \"$(echo \"${CLOUD_PROVIDER_ENABLED}\"\
+  \ | tr '[:upper:]' '[:lower:]')\" = \"true\" ]; then\n    KUBELET_ARGS=\"${KUBELET_ARGS}\
+  \ --cloud-provider=external\"\nfi\n\nif [ -f /etc/sysconfig/docker ] ; then\n  \
+  \  # For using default log-driver, other options should be ignored\n    sed -i 's/\\\
+  -\\-log\\-driver\\=journald//g' /etc/sysconfig/docker\n    # json-file is required\
+  \ for conformance.\n    # https://docs.docker.com/config/containers/logging/json-file/\n\
+  \    DOCKER_OPTIONS=\"--log-driver=json-file --log-opt max-size=10m --log-opt max-file=5\"\
+  \n    if [ -n \"${INSECURE_REGISTRY_URL}\" ]; then\n        DOCKER_OPTIONS=\"${DOCKER_OPTIONS}\
+  \ --insecure-registry ${INSECURE_REGISTRY_URL}\"\n    fi\n    sed -i -E 's/^OPTIONS=(\"\
+  |'\"'\"')/OPTIONS=\\1'\"${DOCKER_OPTIONS}\"' /' /etc/sysconfig/docker\nfi\n\nKUBELET_ARGS=\"\
+  ${KUBELET_ARGS} --register-with-taints=node-role.kubernetes.io/control-plane=:NoSchedule\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --node-labels=magnum.openstack.org/role=${NODEGROUP_ROLE}\"\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --node-labels=magnum.openstack.org/nodegroup=${NODEGROUP_NAME}\"\
+  \n\nKUBELET_KUBECONFIG=/etc/kubernetes/kubelet-config.yaml\ncat << EOF >> ${KUBELET_KUBECONFIG}\n\
+  apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority: ${CERT_DIR}/ca.crt\n\
+  \    server: ${KUBE_MASTER_URI}\n  name: ${CLUSTER_UUID}\ncontexts:\n- context:\n\
+  \    cluster: ${CLUSTER_UUID}\n    user: system:node:${INSTANCE_NAME}\n  name: default\n\
+  current-context: default\nkind: Config\npreferences: {}\nusers:\n- name: system:node:${INSTANCE_NAME}\n\
+  \  user:\n    as-user-extra: {}\n    client-certificate: ${CERT_DIR}/kubelet.crt\n\
+  \    client-key: ${CERT_DIR}/kubelet.key\nEOF\n\ncat > /etc/kubernetes/get_require_kubeconfig.sh\
+  \ << EOF\n#!/bin/bash\n\nKUBE_VERSION=\\$(kubelet --version | awk '{print \\$2}')\n\
+  min_version=v1.8.0\nif [[ \"\\${min_version}\" != \\$(echo -e \"\\${min_version}\\\
+  n\\${KUBE_VERSION}\" | sort -s -t. -k 1,1 -k 2,2n -k 3,3n | head -n1) && \"\\${KUBE_VERSION}\"\
+  \ != \"devel\" ]]; then\n    echo \"--require-kubeconfig\"\nfi\nEOF\nchmod +x /etc/kubernetes/get_require_kubeconfig.sh\n\
+  \nKUBELET_ARGS=\"${KUBELET_ARGS} --client-ca-file=${CERT_DIR}/ca.crt --tls-cert-file=${CERT_DIR}/kubelet.crt\
+  \ --tls-private-key-file=${CERT_DIR}/kubelet.key --kubeconfig ${KUBELET_KUBECONFIG}\"\
+  \n\n# specified cgroup driver\nKUBELET_ARGS=\"${KUBELET_ARGS} --cgroup-driver=${CGROUP_DRIVER}\"\
+  \nif [ ${CONTAINER_RUNTIME} = \"containerd\"  ] ; then\n    KUBELET_ARGS=\"${KUBELET_ARGS}\
+  \ --runtime-cgroups=/system.slice/containerd.service\"\n    KUBELET_ARGS=\"${KUBELET_ARGS}\
+  \ --runtime-request-timeout=15m\"\n    KUBELET_ARGS=\"${KUBELET_ARGS} --container-runtime-endpoint=unix:///run/containerd/containerd.sock\"\
+  \nelse\n    KUBELET_ARGS=\"${KUBELET_ARGS} --network-plugin=cni --cni-conf-dir=/etc/cni/net.d\
+  \ --cni-bin-dir=/opt/cni/bin\"\nfi\n\nif [ -z \"${KUBE_NODE_IP}\" ]; then\n    KUBE_NODE_IP=$(curl\
+  \ -s http://169.254.169.254/latest/meta-data/local-ipv4)\nfi\n\nKUBELET_ARGS=\"\
+  ${KUBELET_ARGS} --address=${KUBE_NODE_IP} --port=10250 --read-only-port=0 --anonymous-auth=false\
+  \ --authorization-mode=Webhook --authentication-token-webhook=true\"\n\nsed -i '\n\
+  /^KUBELET_ADDRESS=/ s/=.*/=\"\"/\n/^KUBELET_HOSTNAME=/ s/=.*/=\"\"/\n/^KUBELET_ARGS=/\
+  \ s|=.*|=\"'\"${KUBELET_ARGS}\"'\"|\n' /etc/kubernetes/kubelet\n\n#!/bin/sh\n\n\
+  . /etc/sysconfig/heat-params\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\
+  \n\nif [ -n \"$DOCKER_VOLUME_SIZE\" ] && [ \"$DOCKER_VOLUME_SIZE\" -gt 0 ]; then\n\
+  \    if [ \"$ENABLE_CINDER\" == \"False\" ]; then\n        # FIXME(yuanying): Use\
+  \ ephemeral disk for docker storage\n        # Currently Ironic doesn't support\
+  \ cinder volumes,\n        # so we must use preserved ephemeral disk instead of\
+  \ a cinder volume.\n        device_path=$($ssh_cmd readlink -f /dev/disk/by-label/ephemeral0)\n\
+  \    else\n        attempts=60\n        while [ ${attempts} -gt 0 ]; do\n      \
+  \      device_name=$($ssh_cmd ls /dev/disk/by-id | grep ${DOCKER_VOLUME:0:20} |\
+  \ head -n1)\n            if [ -n \"${device_name}\" ]; then\n                break\n\
+  \            fi\n            echo \"waiting for disk device\"\n            sleep\
+  \ 0.5\n            $ssh_cmd udevadm trigger\n            let attempts--\n      \
+  \  done\n\n        if [ -z \"${device_name}\" ]; then\n            echo \"ERROR:\
+  \ disk device does not exist\" >&2\n            exit 1\n        fi\n\n        device_path=/dev/disk/by-id/${device_name}\n\
+  \    fi\nfi\n\nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\n\nruntime=${CONTAINER_RUNTIME}\n\
+  if [ ${CONTAINER_RUNTIME} = \"containerd\"  ] ; then\n    storage_dir=\"/var/lib/containerd\"\
+  \nelse\n    storage_dir=\"/var/lib/docker\"\n    runtime=\"docker\"\nfi\n\nclear_docker_storage\
+  \ () {\n    # stop docker\n    $ssh_cmd systemctl stop ${runtime}\n    # clear storage\
+  \ graph\n    $ssh_cmd rm -rf ${storage_dir}\n    $ssh_cmd mkdir -p ${storage_dir}\n\
+  }\n\n# Configure generic docker storage driver.\nconfigure_storage_driver_generic()\
+  \ {\n    clear_docker_storage\n\n    if [ -n \"$DOCKER_VOLUME_SIZE\" ] && [ \"$DOCKER_VOLUME_SIZE\"\
+  \ -gt 0 ]; then\n        $ssh_cmd mkfs.xfs -f ${device_path}\n        echo \"${device_path}\
+  \ ${storage_dir} xfs defaults 0 0\" >> /etc/fstab\n        $ssh_cmd mount -a\n \
+  \       $ssh_cmd restorecon -R ${storage_dir}\n    fi\n    if [ ${CONTAINER_RUNTIME}\
+  \ = \"host-docker\"  ] ; then\n        sed -i -E 's/^OPTIONS=(\"|'\"'\"')/OPTIONS=\\\
+  1--storage-driver='$1' /' /etc/sysconfig/docker\n        # NOTE(flwang): The default\
+  \ nofile limit it too low, update it to\n        # match the default value in containerd\n\
+  \        sed -i -E 's/--default-ulimit nofile=1024:1024/--default-ulimit nofile=1048576:1048576/'\
+  \ /etc/sysconfig/docker\n    fi\n}\n\nconfigure_devicemapper() {\n    configure_storage_driver_generic\n\
+  }\n\n\n\nif [ \"$DOCKER_STORAGE_DRIVER\" = \"devicemapper\" ]; then\n    configure_devicemapper\n\
+  else\n    configure_storage_driver_generic $DOCKER_STORAGE_DRIVER\nfi\n\n. /etc/sysconfig/heat-params\n\
+  \nssh_cmd=\"ssh -F /srv/magnum/.ssh/config root@localhost\"\n\n# make sure we pick\
+  \ up any modified unit files\n$ssh_cmd systemctl daemon-reload\n\n# if the certificate\
+  \ manager api is enabled, wait for the ca key to be handled\n# by the heat container\
+  \ agent (required for the controller-manager)\nwhile [ ! -f /etc/kubernetes/certs/ca.key\
+  \ ] && \\\n    [ \"$(echo $CERT_MANAGER_API | tr '[:upper:]' '[:lower:]')\" == \"\
+  true\" ]; do\n    echo \"waiting for CA to be made available for certificate manager\
+  \ api\"\n    sleep 2\ndone\n\necho \"starting services\"\nif [ ${CONTAINER_RUNTIME}\
+  \ = \"containerd\"  ] ; then\n    container_runtime_service=\"containerd\"\nelse\n\
+  \    container_runtime_service=\"docker\"\nfi\nfor action in enable restart; do\n\
+  \    for service in etcd ${container_runtime_service} kube-apiserver kube-controller-manager\
+  \ kube-scheduler kubelet kube-proxy; do\n        echo \"$action service $service\"\
+  \n        $ssh_cmd systemctl $action $service\n    done\ndone\n\n# Label self as\
+  \ master\nuntil  [ \"ok\" = \"$(kubectl get --raw='/healthz')\" ] && \\\n    kubectl\
+  \ patch node ${INSTANCE_NAME} \\\n        --patch '{\"metadata\": {\"labels\": {\"\
+  node-role.kubernetes.io/control-plane\": \"\"}}}'\ndo\n    echo \"Trying to label\
+  \ master node with node-role.kubernetes.io/control-plane=\\\"\\\"\"\n    sleep 5s\n\
+  done\n\nif [ \"$(echo $USE_PODMAN | tr '[:upper:]' '[:lower:]')\" == \"true\" ];\
+  \ then\n    KUBE_DIGEST=$($ssh_cmd podman image inspect ${CONTAINER_INFRA_PREFIX:-${HYPERKUBE_PREFIX}}hyperkube:${KUBE_TAG}\
+  \ --format \"{{.Digest}}\")\n    if [ -n \"${KUBE_IMAGE_DIGEST}\"  ] && [ \"${KUBE_IMAGE_DIGEST}\"\
+  \ != \"${KUBE_DIGEST}\" ]; then\n        printf \"The sha256 ${KUBE_DIGEST} of current\
+  \ hyperkube image cannot match the given one: ${KUBE_IMAGE_DIGEST}.\"\n        exit\
+  \ 1\n    fi\nfi\n\nset +x\n. /etc/sysconfig/heat-params\nset -x\n\nssh_cmd=\"ssh\
+  \ -F /srv/magnum/.ssh/config root@localhost\"\n\nif [ ${CONTAINER_RUNTIME} = \"\
+  containerd\"  ] ; then\n    SERVICE_DIR=\"/etc/systemd/system/containerd.service.d\"\
+  \nelse\n    SERVICE_DIR=\"/etc/systemd/system/docker.service.d\"\nfi\n\nHTTP_PROXY_CONF=${SERVICE_DIR}/http_proxy.conf\n\
+  \nHTTPS_PROXY_CONF=${SERVICE_DIR}/https_proxy.conf\n\nNO_PROXY_CONF=${SERVICE_DIR}/no_proxy.conf\n\
+  \nRUNTIME_RESTART=0\n\nBASH_RC=/etc/bashrc\n\nmkdir -p ${SERVICE_DIR}\n\nif [ -n\
+  \ \"$HTTP_PROXY\" ]; then\n    cat <<EOF | sed \"s/^ *//\" > $HTTP_PROXY_CONF\n\
+  \    [Service]\n    Environment=HTTP_PROXY=$HTTP_PROXY\nEOF\n\n    RUNTIME_RESTART=1\n\
+  \n    if [ -f \"$BASH_RC\" ]; then\n        echo \"declare -x http_proxy=$HTTP_PROXY\"\
+  \ >> $BASH_RC\n    else\n        echo \"File $BASH_RC does not exist, not setting\
+  \ http_proxy\"\n    fi\nfi\n\nif [ -n \"$HTTPS_PROXY\" ]; then\n    cat <<EOF |\
+  \ sed \"s/^ *//\" > $HTTPS_PROXY_CONF\n    [Service]\n    Environment=HTTPS_PROXY=$HTTPS_PROXY\n\
+  EOF\n\n    RUNTIME_RESTART=1\n\n    if [ -f \"$BASH_RC\" ]; then\n        echo \"\
+  declare -x https_proxy=$HTTPS_PROXY\" >> $BASH_RC\n    else\n        echo \"File\
+  \ $BASH_RC does not exist, not setting https_proxy\"\n    fi\nfi\n\nif [ -n \"$NO_PROXY\"\
+  \ ]; then\n    cat <<EOF | sed \"s/^ *//\" > $NO_PROXY_CONF\n    [Service]\n   \
+  \ Environment=NO_PROXY=$NO_PROXY\nEOF\n\n    RUNTIME_RESTART=1\n\n    if [ -f \"\
+  $BASH_RC\" ]; then\n        echo \"declare -x no_proxy=$NO_PROXY\" >> $BASH_RC\n\
+  \    else\n        echo \"File $BASH_RC does not exist, not setting no_proxy\"\n\
+  \    fi\nfi\n\nif [ \"$RUNTIME_RESTART\" -eq 1 ]; then\n    $ssh_cmd systemctl daemon-reload\n\
+  \    if [ ${CONTAINER_RUNTIME} = \"containerd\"  ] ; then\n        $ssh_cmd systemctl\
+  \ --no-block restart containerd.service\n    else\n        $ssh_cmd systemctl --no-block\
+  \ restart docker.service\n    fi\nfi\n"
+inputs:
+- description: ID of the server being deployed to
+  name: deploy_server_id
+  type: String
+  value: 21239ee9-2bf7-4461-8c17-1984897c9026
+- description: Name of the current action being deployed
+  name: deploy_action
+  type: String
+  value: CREATE
+- description: ID of the stack this deployment belongs to
+  name: deploy_stack_id
+  type: String
+  value: kube-cluster-te6jwrjql774-kube_masters-r5lyhoilyrkx-0-gwhixiebzsa7/d6fb0aa9-cf1a-4df1-9b15-ae7427b52887
+- description: Name of this deployment resource in the stack
+  name: deploy_resource_name
+  type: String
+  value: master_config_deployment
+- description: How the server should signal to heat with the deployment output values.
+  name: deploy_signal_transport
+  type: String
+  value: HEAT_SIGNAL
+- description: URL for API authentication
+  name: deploy_auth_url
+  type: String
+  value: https://192.168.122.11:5000/v3
+- description: Username for API authentication
+  name: deploy_username
+  type: String
+  value: kube-cluster-te6jwrjql774-kube_masters-r5lyhoilyrkx-0-gwhixiebzsa7-master_config_deployment-eacq23n3cvrz
+- description: User ID for API authentication
+  name: deploy_user_id
+  type: String
+  value: a48ff26f3eb54e68b22e38e22f18b80d
+- description: Password for API authentication
+  name: deploy_password
+  type: String
+  value: jpfuE3AtxF2J2#eCXV#EdO9!LctOJfar
+- description: ID of project for API authentication
+  name: deploy_project_id
+  type: String
+  value: 363d95651c7940548b4a0622c03769bf
+- description: Region name for API authentication
+  name: deploy_region_name
+  type: String
+  value: RegionOne
+outputs: []
+options: {}
+creation_time: '2025-10-15T05:22:48Z'
+root@infra1-utility-container-6987036e:~# 
+

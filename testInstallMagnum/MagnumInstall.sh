@@ -93,7 +93,7 @@ admin_tenant_name = service
 trustee_domain_name = magnum
 trustee_domain_admin_name = magnum_domain_admin
 trustee_domain_admin_password = 1c1497a7d91f73562cc17
-trustee_keystone_interface = internal
+trustee_keystone_interface = public
 
 [oslo_messaging_notifications]
 ...

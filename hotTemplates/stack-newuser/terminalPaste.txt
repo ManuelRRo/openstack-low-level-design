@@ -1,0 +1,2 @@
+openstack stack create   -t create_user_project.yaml   --parameter username=javier   --parameter project_name=proyecto_javier   --parameter role_name=member   --parameter domain_name=default   stack_javier
+

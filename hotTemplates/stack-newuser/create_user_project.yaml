@@ -1,0 +1,67 @@
+heat_template_version: 2021-04-16
+
+description: |
+  Crea un proyecto y un usuario en Keystone, asigna un rol en el proyecto y devuelve la contraseña generada.
+
+parameters:
+  username:
+    type: string
+    description: "Nombre del nuevo usuario."
+  project_name:
+    type: string
+    description: "Nombre del nuevo proyecto."
+  role_name:
+    type: string
+    description: "Rol a asignar en el proyecto (por defecto: member)."
+    default: member
+  domain_name:
+    type: string
+    description: "Dominio de Keystone para el usuario y el proyecto."
+    default: default
+
+resources:
+  user_project:
+    type: OS::Keystone::Project
+    properties:
+      name: { get_param: project_name }
+      description: "Proyecto creado automáticamente por Heat"
+      enabled: true
+      domain: { get_param: domain_name }
+
+  user_password:
+    type: OS::Heat::RandomString
+    properties:
+      length: 12
+      sequence: lettersdigits
+      salt: { get_param: username }
+
+  new_user:
+    type: OS::Keystone::User
+    properties:
+      name: { get_param: username }
+      password: { get_attr: [user_password, value] }
+      default_project: { get_resource: user_project }
+      enabled: true
+      domain: { get_param: domain_name }
+
+  user_role_assignment:
+    type: OS::Keystone::UserRoleAssignment
+    properties:
+      user: { get_resource: new_user }
+      roles:
+        - role: { get_param: role_name }
+          project: { get_resource: user_project }
+          # domain es opcional aquí porque ya especificamos el proyecto
+
+outputs:
+  generated_password:
+    description: "Contraseña generada para el usuario"
+    value: { get_attr: [user_password, value] }
+
+  project_id:
+    description: "ID del proyecto creado"
+    value: { get_resource: user_project }
+
+  user_id:
+    description: "ID del usuario creado"
+    value: { get_resource: new_user }
