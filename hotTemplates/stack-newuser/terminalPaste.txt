@@ -1,2 +1,12 @@
 openstack stack create   -t create_user_project.yaml   --parameter username=javier   --parameter project_name=proyecto_javier   --parameter role_name=member   --parameter domain_name=default   stack_javier
 
+# after create the user, 
+
+1. create a keypair
+2. create a subnet
+3. create a router
+4. add security group rules
+5. add subnet as interface for the router.
+6. update stack main.yml
+7. run stack
+
