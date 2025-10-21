@@ -52,6 +52,13 @@ resources:
         - role: { get_param: role_name }
           project: { get_resource: user_project }
           # domain es opcional aquí porque ya especificamos el proyecto
+  
+  new_security_group:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      name: { get_param: username }
+      description: "Security group for user { get_param: username }"
+      project_id: { get_resource: user_project }
 
 outputs:
   generated_password:

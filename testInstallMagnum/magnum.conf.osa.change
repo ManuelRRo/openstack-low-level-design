@@ -1,0 +1,116 @@
+
+[DEFAULT]
+# Disable stderr logging
+use_stderr = False
+debug = True
+use_journal = True
+host = 172.29.237.81
+transport_url = rabbit://magnum:645b7cf10706595dfe4dc59cc2ccac7477b7d12dd02751@172.29.239.221:5671/magnum?ssl=1&ssl_version=TLSv1_2&ssl_ca_file=
+
+[api]
+host = 172.29.237.81
+
+[drivers]
+# NOTE(mnaser) = Remove this once the following bug is fixed
+#               https = //bugs.launchpad.net/magnum/+bug/1746510
+# copy the content from infra1: /usr/local/share/ca-certificates/ExampleCorpRoot.crt
+# to /etc/ssl/certs/openstack-ca.pem inside the infra1-magnum-container
+send_cluster_metrics = False
+verify_ca = true
+openstack_ca_file = /etc/ssl/certs/openstack-ca.pem
+
+[barbican_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[cinder_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[conductor]
+workers = 8
+
+[database]
+connection = mysql+pymysql://magnum:42528e06307805b82674decf61a7eaf06436bca9f0f0602c0147949c@172.29.236.11:3306/magnum_service?charset=utf8&ssl_verify_cert=true
+max_overflow = 50
+max_pool_size = 5
+pool_timeout = 30
+connection_recycle_time = 600
+
+[glance_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[heat_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[keystone_auth]
+auth_section = keystone_authtoken
+insecure = False
+
+[keystone_authtoken]
+region_name = RegionOne
+www_authenticate_uri = http://172.29.236.11:5000
+auth_version = v3
+memcached_servers = 172.29.239.254:11211
+token_cache_time = 300
+auth_type = password
+auth_url = http://172.29.236.11:5000/v3
+project_domain_name = Default
+user_domain_name = Default
+project_name = service
+username = magnum
+password = a1187f496c1df32c7ad1f7c7c307a75e007ea8e10b
+service_token_roles_required = True
+service_token_roles = service
+service_type = container-infra
+
+[magnum_client]
+region_name = RegionOne
+endpoint_type = publicURL
+
+[neutron_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[nova_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[octavia_client]
+region_name = RegionOne
+endpoint_type = internalURL
+
+[oslo_messaging_notifications]
+driver = messagingv2
+transport_url = rabbit://magnum:645b7cf10706595dfe4dc59cc2ccac7477b7d12dd02751@172.29.239.221:5671/magnum?ssl=1&ssl_version=TLSv1_2&ssl_ca_file=
+
+[oslo_messaging_rabbit]
+ssl = True
+rabbit_notification_exchange = magnum
+rabbit_notification_topic = notification
+rabbit_quorum_queue = True
+rabbit_transient_quorum_queue = True
+rabbit_qos_prefetch_count = 10
+use_queue_manager = False
+rabbit_stream_fanout = True
+rabbit_quorum_delivery_limit = 0
+rabbit_quorum_max_memory_bytes = 0
+
+[oslo_concurrency]
+lock_path = /run/lock/magnum-api/uwsgi
+
+[profiler]
+enabled = false
+
+[trust]
+trustee_domain_admin_password = 09cb101fe7bd720141424393a4e72f9924385a727127ef5869727
+trustee_domain_admin_name = trustee_domain_admin
+trustee_domain_name = magnum
+cluster_user_trust = True
+trustee_keystone_interface = public
+trustee_keystone_region_name = RegionOne
+
+[certificates]
+cert_manager_type = x509keypair
