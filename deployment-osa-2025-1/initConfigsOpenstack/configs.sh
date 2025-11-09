@@ -3,7 +3,7 @@ openstack network create ext-net \
   --provider-network-type flat \
   --provider-physical-network physnet1
 
-openstack subnet create --network ext-net \
+openstack subnet create --network ext-net-subnet \
   --allocation-pool start=192.168.31.101,end=192.168.31.150 \
   --dns-nameserver 8.8.4.4 --gateway 192.168.31.1 \
   --subnet-range 192.168.31.0/24 ext-net
