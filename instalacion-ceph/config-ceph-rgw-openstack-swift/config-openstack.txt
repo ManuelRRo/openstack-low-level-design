@@ -1,0 +1,21 @@
+3. Crear Swift endpoints
+
+openstack user create --domain default --password 'pass' swift
+
+openstack role add --project service --user swift admin
+
+openstack service create --name=swift \
+                         --description="Swift Service integrate with rgw" \
+                         object-store
+
+# cambiar ip y puerto por el seteado en openstack-rgw.yaml
+openstack endpoint create --region RegionOne \
+  object-store public 'http://192.168.31.21:8001/swift/v1/AUTH_%(project_id)s'
+
+
+openstack endpoint create --region RegionOne \
+  object-store internal 'http://192.168.31.21:8001/swift/v1/AUTH_%(project_id)s'
+
+  
+openstack endpoint create --region RegionOne \
+  object-store admin 'http://192.168.31.21:8001/swift/v1/AUTH_%(project_id)s'
