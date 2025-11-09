@@ -1,0 +1,39 @@
+service_type: rgw
+service_id: foo.openstack
+# opcional: service_name: rgw.foo
+placement:
+  label: rgw
+  count_per_host: 1
+
+spec:
+  # Frontend beast
+  rgw_frontend_type: beast
+  rgw_frontend_port: 8002
+  # Si prefieres usar la cadena completa:
+  # rgw_frontends: "beast port=8001"
+
+  # Configuración del daemon (equivalente a ceph.conf / ceph config set)
+  config:
+    # Seguridad / credenciales del cliente rgw
+    # Logging
+    log_file: /var/log/ceph/ceph.rgw.openstack.log
+    # debug_rgw controla el nivel de log del subsistema rgw
+    # (es la forma documentada de subir el nivel de detalle). :contentReference[oaicite:2]{index=2}
+    debug_rgw: 20
+
+    # === Keystone Settings ===
+    rgw_keystone_url: https://192.168.31.11:5000
+    rgw_keystone_api_version: 3
+    rgw_keystone_accepted_roles: "admin,Member,member"
+    rgw_keystone_token_cache_size: 500
+    rgw_keystone_implicit_tenants: "true"
+
+    rgw_keystone_admin_user: admin
+    rgw_keystone_admin_project: admin
+    rgw_keystone_admin_password: cef57fe10948921959dc269e6292ef55ae676a25eece915ce1dc227bf29b
+    rgw_keystone_admin_domain: default
+
+    # Swift + Keystone
+    rgw_swift_account_in_url: "true"
+    rgw_s3_auth_use_keystone: "true"
+    rgw_keystone_verify_ssl: "false"

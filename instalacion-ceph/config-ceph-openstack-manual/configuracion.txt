@@ -1,0 +1,65 @@
+## Use ceph RGW with swift
+1. create user in ceph cluster for swift service and apply permission
+RGW_INSTANCE_NAME=rgw.gateway1
+sudo ceph auth get-or-create client.${RGW_INSTANCE_NAME} osd 'allow rwx' mon 'allow rw' -o /etc/ceph/ceph.client.${RGW_INSTANCE_NAME}.keyring
+sudo chown ceph:ceph /etc/ceph/ceph.client.${RGW_INSTANCE_NAME}.keyring
+sudo chmod 640 /etc/ceph/ceph.client.${RGW_INSTANCE_NAME}.keyring
+
+2. modify ceph.conf file in RGW Node
+rgw_frontends = "beast port=8001"
+keyring = /etc/ceph/ceph.client.rgw.openstack.keyring
+log file = /var/log/ceph/ceph.rgw.openstack.log
+debug_rgw = 20
+rgw_log_level = 20
+
+# Keystone Settings
+rgw_keystone_url = "https://192.168.31.11:5000"
+rgw_keystone_api_version = 3
+rgw_keystone_accepted_roles admin,Member,member,member
+rgw_keystone_token_cache_size 500
+#rgw_keystone_revocation_interval 600
+rgw_keystone_implicit_tenants true
+
+rgw_keystone_admin_user "admin"
+rgw_keystone_admin_project "admin"
+rgw_keystone_admin_password "302cad6649da2071c171ecc4427a308a23da6012cd75ac86ec53b77c7c52"
+rgw_keystone_admin_domain "default"
+
+rgw_swift_account_in_url true 
+# In order to let a project (earlier called a ‘tenant’) access buckets belonging to a different project, the following config option needs to be enabled: true
+rgw_s3_auth_use_keystone true
+rgw_keystone_verify_ssl false
+
+3. Crear Swift endpoints
+
+openstack user create --domain default --password '302cad6649da2071c171ecc4427a308a23da6012cd75ac86ec53b77c7c52' swift
+
+
+## password 302cad6649da2071c171ecc4427a308a23da6012cd75ac86ec53b77c7c52
+
+openstack role add --project service --user swift admin
+
+openstack service create --name=swift \
+                         --description="Swift Service integrate with rgw" \
+                         object-store
+
+RGW_PUBLIC_URL=http://192.168.31.21:8001
+
+openstack endpoint create --region RegionOne \
+  object-store public 'http://192.168.31.21:8001/swift/v1/AUTH_%(project_id)s'
+
+
+openstack endpoint create --region RegionOne \
+  object-store internal 'http://192.168.31.21:8001/swift/v1/AUTH_%(project_id)s'
+
+  
+openstack endpoint create --region RegionOne \
+  object-store admin 'http://192.168.31.21:8001/swift/v1/AUTH_%(project_id)s'
+
+                
+
+ openstack endpoint create --region RegionOne \
+     --publicurl   "http://192.168.31.21:8001/swift/v1/AUTH_$(project_id)s" \
+     --adminurl    "http://192.168.31.21:8001/swift/v1/AUTH_$(project_id)s" \
+     --internalurl "http://192.168.31.21:8001/swift/v1/AUTH_$(project_id)s" \
+     swift

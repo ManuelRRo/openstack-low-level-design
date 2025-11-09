@@ -10,9 +10,10 @@ su -
 Configurar hostnames en cada host
 
 ```
-hostnamectl set-hostname ceph-1
-hostnamectl set-hostname ceph-2
-hostnamectl set-hostname ceph-3
+# tambier hacer el cambio en nano /etc/hosts
+hostnamectl set-hostname ceph-osd1
+hostnamectl set-hostname ceph-osd2
+hostnamectl set-hostname ceph-osd3
 ```
 
 ```
@@ -20,9 +21,9 @@ nano /etc/network/interfaces
 ...
 auto enp1s0
 iface enp1s0 inet static
-    address 192.168.1.6
+    address 192.168.31.6
     netmask 255.255.255.0
-    gateway 192.168.1.1
+    gateway 192.168.31.1
     dns-nameservers 8.8.8.8 8.8.4.4
 
 ```
@@ -39,7 +40,7 @@ nameserver 8.8.4.4
 apt update
 ```
 ```
-apt install podman chrony lvm2 sudo curl
+apt install podman chrony lvm2 sudo curl net-tools sudo
 ```
 
 ```
@@ -72,7 +73,7 @@ sudo chmod +x cephadm
 ```
 
 ```
-cephadm bootstrap --mon-ip 192.168.1.6 --ssh-user debian
+cephadm bootstrap --mon-ip 192.168.1.6 --ssh-user icc115
 ```
 
 > acceder via ip https://192.168.1.6:8443 
@@ -123,3 +124,50 @@ ceph orch apply rgw radosgw '--placement=label:rgw count-per-host:1' --port=8001
 ```
 ceph osd pool ls
 ```
+
+##################################################################
+###################################################################
+
+Adding key to icc115@localhost authorized_keys...
+Adding host ceph-admin...
+Deploying mon service with default placement...
+Deploying mgr service with default placement...
+Deploying crash service with default placement...
+Deploying ceph-exporter service with default placement...
+Deploying prometheus service with default placement...
+Deploying grafana service with default placement...
+Deploying node-exporter service with default placement...
+Deploying alertmanager service with default placement...
+Enabling the dashboard module...
+Waiting for the mgr to restart...
+Waiting for mgr epoch 9...
+mgr epoch 9 is available
+Generating a dashboard self-signed certificate...
+Creating initial admin user...
+Fetching dashboard port number...
+Ceph Dashboard is now available at:
+
+	     URL: https://ceph-admin:8443/
+	    User: admin
+	Password: lrd5cnjuuy
+
+Enabling client.admin keyring and conf on hosts with "admin" label
+Saving cluster configuration to /var/lib/ceph/30796ba2-ba87-11f0-9500-5254003b4585/config directory
+You can access the Ceph CLI as following in case of multi-cluster or non-default config:
+
+	sudo /usr/sbin/cephadm shell --fsid 30796ba2-ba87-11f0-9500-5254003b4585 -c /etc/ceph/ceph.conf -k /etc/ceph/ceph.client.admin.keyring
+
+Or, if you are only running a single cluster on this host:
+
+	sudo /usr/sbin/cephadm shell 
+
+Please consider enabling telemetry to help improve Ceph:
+
+	ceph telemetry on
+
+For more information see:
+
+	https://docs.ceph.com/en/latest/mgr/telemetry/
+
+Bootstrap complete.
+root@ceph-admin:~# 

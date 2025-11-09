@@ -18,7 +18,7 @@ elif [[ "$OPT" == "tf-gpu" ]]; then
 elif [[ "$OPT" == "pt-cpu" ]]; then
     pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 elif [[ "$OPT" == "pt-gpu" ]]; then
-    pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+    pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 else
   echo "software de entrenamiento no seleccionado"
 fi
