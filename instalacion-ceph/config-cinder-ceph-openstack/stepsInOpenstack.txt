@@ -1,0 +1,53 @@
+1. Add secret in nova compute nodes to allow attachment of cinder ceph volumes
+uuidgen
+457eb676-33da-42ec-9a8c-9293d545c337
+
+cat > secret.xml <<EOF
+<secret ephemeral='no' private='no'>
+  <uuid>457eb676-33da-42ec-9a8c-9293d545c337</uuid>
+  <usage type='ceph'>
+    <name>client.cinder secret</name>
+  </usage>
+</secret>
+EOF
+sudo virsh secret-define --file secret.xml
+Secret 457eb676-33da-42ec-9a8c-9293d545c337 created
+sudo virsh secret-set-value --secret 457eb676-33da-42ec-9a8c-9293d545c337 --base64 $(cat client.cinder.key) && rm client.cinder.key secret.xml
+
+2. allow cinder env detect rados in enviroment
+
+VENV=/openstack/venvs/cinder-31.0.1
+
+# Detectar versión de Python del venv (por ejemplo python3.12)
+PYVER=$($VENV/bin/python3 - <<'PY'
+import sys
+print(f"python{sys.version_info.major}.{sys.version_info.minor}")
+PY
+)
+
+echo "Usando versión: $PYVER"
+
+# Crear archivo .pth para añadir los dist-packages del sistema
+echo "/usr/lib/python3/dist-packages" > \
+$VENV/lib/$PYVER/site-packages/ceph_bindings.pth
+
+/openstack/venvs/cinder-31.0.1/bin/python3 -c "import rados, rbd; print('OK_RBD')"
+
+
+3. CONFIGURE cinde.conf file
+[DEFAULT]
+...
+enabled_backends = ceph
+glance_api_version = 2
+...
+[ceph]
+volume_driver = cinder.volume.drivers.rbd.RBDDriver
+volume_backend_name = ceph
+rbd_pool = volumes
+rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_flatten_volume_from_snapshot = false
+rbd_max_clone_depth = 5
+rbd_store_chunk_size = 4
+rados_connect_timeout = -1
+rbd_user = cinder
+rbd_secret_uuid = 457eb676-33da-42ec-9a8c-9293d545c337
