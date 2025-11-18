@@ -10,8 +10,11 @@ cat > secret.xml <<EOF
   </usage>
 </secret>
 EOF
+
 sudo virsh secret-define --file secret.xml
-Secret 457eb676-33da-42ec-9a8c-9293d545c337 created
+#Output msg
+#Secret 457eb676-33da-42ec-9a8c-9293d545c337 created
+
 sudo virsh secret-set-value --secret 457eb676-33da-42ec-9a8c-9293d545c337 --base64 $(cat client.cinder.key) && rm client.cinder.key secret.xml
 
 2. allow cinder env detect rados in enviroment
@@ -34,7 +37,7 @@ $VENV/lib/$PYVER/site-packages/ceph_bindings.pth
 /openstack/venvs/cinder-31.0.1/bin/python3 -c "import rados, rbd; print('OK_RBD')"
 
 
-3. CONFIGURE cinde.conf file
+3. CONFIGURE cinder.conf file
 [DEFAULT]
 ...
 enabled_backends = ceph

@@ -1,5 +1,5 @@
 service_type: rgw
-service_id: foo.openstack
+service_id: foo.gpu.openstack
 # opcional: service_name: rgw.foo
 placement:
   label: rgw
@@ -8,7 +8,7 @@ placement:
 spec:
   # Frontend beast
   rgw_frontend_type: beast
-  rgw_frontend_port: 8002
+  rgw_frontend_port: 8005
   # Si prefieres usar la cadena completa:
   # rgw_frontends: "beast port=8001"
 
@@ -30,7 +30,7 @@ spec:
 
     rgw_keystone_admin_user: admin
     rgw_keystone_admin_project: admin
-    rgw_keystone_admin_password: cef57fe10948921959dc269e6292ef55ae676a25eece915ce1dc227bf29b
+    rgw_keystone_admin_password: 15309e2e0494fd0a370ced0403552b6c8100a
     rgw_keystone_admin_domain: default
 
     # Swift + Keystone
