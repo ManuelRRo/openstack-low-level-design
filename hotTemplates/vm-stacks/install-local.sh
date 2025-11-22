@@ -35,14 +35,23 @@ fi
 # deactivate virtual enviroment
 deactivate
 
-# download videos and models
-mkdir /home/ubuntu/resources
+#### demo
+mkdir /home/ubuntu/demo
 
-cd /home/ubuntu/resources
+cd /home/ubuntu/demo
 
-wget -r -np -nH --cut-dirs=1 http://172.21.1.9/resources/
+wget -r -np -nH --cut-dirs=1 http://172.21.1.9/demo/
 
-chown -R ubuntu:ubuntu /home/ubuntu/resources/
+chown -R ubuntu:ubuntu /home/ubuntu/demo/
+
+#### trainmodels
+mkdir /home/ubuntu/trainmodel
+
+cd /home/ubuntu/trainmodel
+
+wget -r -np -nH --cut-dirs=1 http://172.21.1.9/trainmodel/
+
+chown -R ubuntu:ubuntu /home/ubuntu/trainmodel/
 
 
 echo "execution finish"
