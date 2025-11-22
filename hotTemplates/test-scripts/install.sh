@@ -3,7 +3,7 @@
 echo "Running boot script"
 
 # update and install pip and virtual-env
-which pip3 || apt-get update && apt-get install -y python3-pip python3-venv
+which pip3 || apt-get update && apt-get install -y python3-pip python3-venv install -y libgl1
 
 # create a python virtual enviroment in default user
 python3 -m venv /home/ubuntu/env

@@ -10,7 +10,7 @@ openstack subnet create --network ext-net-subnet \
 
 openstack network create selfservice
 
-openstack subnet create --network selfservice \
+openstack subnet create --network selfservice-subnet \
   --dns-nameserver 8.8.4.4 --gateway 172.16.1.1 \
   --subnet-range 172.16.1.0/24 selfservice
   

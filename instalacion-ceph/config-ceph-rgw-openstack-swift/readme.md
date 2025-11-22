@@ -4,3 +4,6 @@
 ```
 ceph orch apply -i openstack-rgw.yaml
 ```
+
+3. para eliminar
+ceph orch rm service_name --force

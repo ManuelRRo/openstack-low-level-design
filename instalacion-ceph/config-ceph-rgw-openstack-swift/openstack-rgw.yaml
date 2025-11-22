@@ -16,13 +16,13 @@ spec:
   config:
     # Seguridad / credenciales del cliente rgw
     # Logging
-    log_file: /var/log/ceph/ceph.rgw.openstack.log
+    log_file: /var/log/ceph/ceph.rgw.gpu.openstack.log
     # debug_rgw controla el nivel de log del subsistema rgw
     # (es la forma documentada de subir el nivel de detalle). :contentReference[oaicite:2]{index=2}
     debug_rgw: 20
 
     # === Keystone Settings ===
-    rgw_keystone_url: https://192.168.31.11:5000
+    rgw_keystone_url: https://192.168.31.97:5000
     rgw_keystone_api_version: 3
     rgw_keystone_accepted_roles: "admin,Member,member"
     rgw_keystone_token_cache_size: 500
