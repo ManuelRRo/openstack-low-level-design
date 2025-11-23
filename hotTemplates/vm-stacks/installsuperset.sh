@@ -1,3 +1,86 @@
+#!/bin/bash
+
+echo "Running boot script"
+
+# update and install pip and virtual-env
+which pip3 || apt-get update && apt-get install -y python3-pip python3-venv libgl1 zip unzip
+
+# create a python virtual enviroment in default user
+python3 -m venv /home/ubuntu/env
+
+# change owner to ubuntu:ubuntu
+chown -R ubuntu:ubuntu /home/ubuntu/env/
+
+# activate virtual enviroment
+source /home/ubuntu/env/bin/activate
+
+if [[ "$OPT" == "tf-cpu" ]]; then
+    pip3 install --no-index --find-links http://172.21.1.9/whtfcpu/ --trusted-host 172.21.1.9 tensorflow-cpu
+elif [[ "$OPT" == "tf-gpu" ]]; then
+    pip3 install --no-index --find-links http://172.21.1.9/whtfgpu/ --trusted-host 172.21.1.9 'tensorflow[and-cuda]'
+elif [[ "$OPT" == "pt-cpu" ]]; then
+    pip3 install --no-index --find-links http://172.21.1.9/whptcpu/ --trusted-host 172.21.1.9 torch torchvision
+    pip3 install --no-index --find-links http://172.21.1.9/whultralytics --trusted-host 172.21.1.9 ultralytics
+    pip3 install --no-index --find-links http://172.21.1.9/whsv --trusted-host 172.21.1.9 supervision
+    pip3 install --no-index --find-links http://172.21.1.9/whst --trusted-host 172.21.1.9 streamlit
+elif [[ "$OPT" == "pt-gpu" ]]; then
+    pip3 install --no-index --find-links http://172.21.1.9/whptgpu/ --trusted-host 172.21.1.9 torch torchvision
+    pip3 install --no-index --find-links http://172.21.1.9/whultralytics --trusted-host 172.21.1.9 ultralytics
+    pip3 install --no-index --find-links http://172.21.1.9/whsv --trusted-host 172.21.1.9 supervision
+    pip3 install --no-index --find-links http://172.21.1.9/whst --trusted-host 172.21.1.9 streamlit
+else
+  echo "software de entrenamiento no seleccionado"
+fi
+
+# deactivate virtual enviroment
+deactivate
+
+#### demo
+mkdir /home/ubuntu/demo
+
+cd /home/ubuntu/demo
+
+wget -r -np -nH --cut-dirs=1 http://172.21.1.9/demo/
+
+chown -R ubuntu:ubuntu /home/ubuntu/demo/
+
+#### trainmodels
+mkdir /home/ubuntu/trainmodel
+
+cd /home/ubuntu/trainmodel
+
+wget -r -np -nH --cut-dirs=1 http://172.21.1.9/trainmodel/
+
+chown -R ubuntu:ubuntu /home/ubuntu/trainmodel/
+
+su ubuntu
+
+cd
+
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo usermod -aG docker ubuntu
+
+newgrp docker
+
 #!/usr/bin/env bash
 set -euo pipefail
 
@@ -157,4 +240,10 @@ Detener/Eliminar:
 ==========================================================
 MSG
 
-docker exec 1f0eac1dc0ff sh -c "cd /app/superset_home && mkdir -p proyectos && touch proyectos/mis_datos.db && ls -lah proyectos"
+docker exec superset_quick sh -c "cd /app/superset_home && mkdir -p proyectos && touch proyectos/mis_datos.db && ls -lah proyectos"
+
+
+
+echo "execution finish"
+# ... 
+
