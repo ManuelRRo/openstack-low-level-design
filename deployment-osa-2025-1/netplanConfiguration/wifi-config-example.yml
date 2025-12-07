@@ -1,0 +1,15 @@
+network:
+  version: 2
+  wifis:
+    wlp3s0:
+      dhcp4: false
+      addresses: [192.168.31.97/24]
+      routes:
+        - to: default
+          via: 192.168.31.1
+          metric: 1000
+      nameservers:
+          addresses: [8.8.8.8,8.8.4.4]
+      access-points:
+        "Xiaomi_1062":
+          password: "icc115#@2025"

@@ -1,0 +1,43 @@
+network:
+   version: 2
+   ethernets:
+     enp2s0:
+       dhcp4: false
+     enxc8a362be4bf6:                     # this interface if for public url api endpoint
+       dhcp4: false
+       addresses: [192.168.31.97/24]
+       routes:
+         - to: default
+           via: 192.168.31.1
+           metric: 1000
+       nameservers:
+           addresses: [8.8.8.8,8.8.4.4]
+   vlans:
+     enp2s0.10:
+       id: 10
+       link: enp2s0
+     enp2s0.20:
+       id: 20
+       link: enp2s0
+     enp2s0.30:
+       id: 30
+       link: enp2s0
+   bridges:
+     br-mgmt:
+       interfaces: [enp2s0.10]
+       addresses: [172.29.236.11/22]
+       routes:
+         - to: default
+           via: 172.29.236.1
+           metric: 100
+       nameservers:
+           addresses: [8.8.8.8,8.8.4.4]
+     br-vxlan:
+       interfaces: [enp2s0.30]
+       addresses: [172.29.240.11/22]
+     br-storage:
+       interfaces: [enp2s0.20]
+     br-vlan:                   # this bridge can be removed if you use openvswitch
+      interfaces: [enp2s0]
+      openvswitch: {}
+
