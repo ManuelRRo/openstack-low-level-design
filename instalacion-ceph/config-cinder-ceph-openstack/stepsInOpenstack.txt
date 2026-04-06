@@ -36,6 +36,7 @@ $VENV/lib/$PYVER/site-packages/ceph_bindings.pth
 
 /openstack/venvs/cinder-31.0.1/bin/python3 -c "import rados, rbd; print('OK_RBD')"
 
+## LOOK FOR THE CINDER.CONF FILE LOCATED IN THE STORAGE nodes
 
 3. CONFIGURE cinder.conf file
 [DEFAULT]

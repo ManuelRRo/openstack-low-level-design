@@ -1,0 +1,24 @@
+[Unit]
+Description=Chatbot Ollama App
+After=network.target
+
+[Service]
+
+User=ubuntu
+Group=ubuntu
+
+
+WorkingDirectory=/home/ubuntu/demo/demo-2/chatbot
+
+# Ejecutar usando el entorno virtual
+ExecStart=/bin/bash -c 'source /home/ubuntu/env/bin/activate && streamlit run streamlit_app.py --server.port=8502 --server.address=0.0>
+
+# Si quieres que se reinicie si falla
+Restart=always
+RestartSec=5
+
+# Opcional: variables de entorno
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

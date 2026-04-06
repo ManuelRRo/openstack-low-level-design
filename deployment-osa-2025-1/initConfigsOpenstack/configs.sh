@@ -64,6 +64,8 @@ openstack security group rule create --proto icmp default
 
 openstack security group rule create --proto tcp --dst-port 22 default
 
+openstack security group rule create --proto tcp --dst-port 80 default
+
 
 wget https://github.com/cirros-dev/cirros/releases/download/0.6.3/cirros-0.6.3-aarch64-disk.img
 wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
